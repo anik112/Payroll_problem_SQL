@@ -1,0 +1,37 @@
+---- IN OUT TIME CORRECTION SQL -----
+
+UPDATE
+	TB_DATA_MASTER
+	--TB_DATA_MASTER_TEMP
+SET
+   OUTTIME='17:'||TRUNC(DBMS_RANDOM.VALUE(10, 15))||':24'||' PM',
+   OUTTIME_V='17:'||TRUNC(DBMS_RANDOM.VALUE(10, 15))||':24'||' PM',
+   DURATION='9:'||TRUNC(DBMS_RANDOM.VALUE(10, 15)),
+   DURATION_V='9:'||TRUNC(DBMS_RANDOM.VALUE(10, 15)),
+   OTMIN=0,
+   OTPART=0,
+   OTMIN_V=0
+WHERE
+	 PDATE = TO_DATE('02/11/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	 AND SECTIONNM
+	 AND FINMONTH
+	 AND FINYEAR
+	 
+	 
+	 
+	 -------------------------------
+	 
+SELECT RAND()*(25-10)+10;
+	 
+	 
+	 
+SELECT RAND( (DATEPART(mm, GETDATE()) * 100000 )
++ (DATEPART(ss, GETDATE()) * 1000 )
++ DATEPART(ms, GETDATE()) 
+
+select dbms_random.value(1,15) num from dual
+
+
+SELECT TRUNC(DBMS_RANDOM.VALUE(0, 100)) FROM DUAL;
+
+------------------------------------------------------------
