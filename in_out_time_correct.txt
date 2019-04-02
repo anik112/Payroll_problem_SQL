@@ -1,0 +1,13 @@
+UPDATE
+	TB_DATA_MASTER
+SET
+   INTIME='07:59:25 AM'
+WHERE
+	 intime is null
+	 and PDATE = TO_DATE('03/22/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS');
+	 
+	 
+select * from tb_data_master where intime is null
+	 
+	 
+select * from tb_data_Master where PDATE = TO_DATE('03/22/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS');
