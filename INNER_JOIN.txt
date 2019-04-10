@@ -1,0 +1,20 @@
+----- selection part ----
+SELECT PR.CARDNO, PR.EMPNAME, ATTD.PDATE, ATTD.INTIME, ATTD.OUTTIME, CMP.COMPANY
+--- 1st table declare.
+FROM TB_DATA_MASTER ATTD
+--- 2nd table join with 1st table base on card number.
+INNER JOIN TB_PERSONAL_INFO PR ON ATTD.CARDNO=PR.CARDNO
+--- 3rd table join with 1st and 2nd table base on company name.
+INNER JOIN TB_COMPANY_INFO CMP ON PR.COMPANY=CMP.COMPANY
+--- filtering part
+WHERE   ATTD.CARDNO='001992'
+AND     ATTD.FINMONTH='June'
+AND     ATTD.FINYEAR=2018
+
+
+
+
+-- table view
++------+-------+-----+------+-------+-------+
+|cardno|empname|pdate|intime|outtime|company|
++------+-------+-----+------+-------+-------+
