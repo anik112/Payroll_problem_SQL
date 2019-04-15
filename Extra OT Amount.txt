@@ -1,0 +1,18 @@
+SELECT mon.cardno ,per.empname,per.designation,sal.BASICSAL,sal.GROSSSAL,sal.OTAMOUNT,per.DEPARTMENTNM,
+       per.lineno, per.SECTIONNM ,sal.OTRATE,(mon.OTMINPART +mon.EXTRA_OT)othr, sal.EXTRA_OTAMT
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  RTRIM(mon.company)  = :p_company 
+and    RTRIM(per.company)  = RTRIM(mon.company)
+and    RTRIM(per.company)  = RTRIM(sal.company)   
+AND    mon.finyear  =  :p_year 
+AND    mon.finmonth =  :p_month 
+AND    mon.finyear  =  sal.finyear 
+AND    mon.finmonth =  sal.finmonth 
+AND    mon.cardno   =  sal.cardno 
+AND    mon.cardno   =  per.cardno 
+AND    per.DEPARTMENTNM LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept) 
+AND    per.SECTIONNM   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section) 
+AND    per.lineno    LIKE DECODE(NVL(:p_line,'all'),'all','%',:p_line) 
+AND    mon.cardno    LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
+AND    sal.EXTRA_OTAMT > 0
+ORDER BY per.lineno,mon.cardno ASC

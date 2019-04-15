@@ -1,0 +1,27 @@
+---- ***** Employee's List with last increment date and amoutn  ---- 
+select per.DEPARTMENTNM, per.SECTIONNM, per.LINENO, per.CARDNO, per.EMPNAME, per.JOINING_DATE, 
+       per.DESIGNATION, per.BIRTH_DATE, per.GENDER,other.EDUCATION, other.PERFORMANCE skill_grd,
+	   pro.EFFECTIVEDATE last_incr_date,pro.PROSALARY last_incr_amt, per.GROSSSALARY
+from   tb_personal_info per, TB_PERSONAL_INFO_OTHER other,TB_PROMOTION_INFO pro
+where  per.COMPANY = other.COMPANY(+)
+and    per.COMPANY = pro.COMPANY(+)
+and    per.CARDNO  = other.CARDNO(+)
+and    per.CARDNO  = pro.CARDNO(+)
+and    per.COMPANY = :p_company
+and    pro.slno = ( select max(slno) from TB_PROMOTION_INFO where COMPANY = :p_company 
+                                     and cardno = per.cardno)
+---and    per.DEPARTMENTNM = :p_dept
+and    per.active = 0 
+order by per.DEPARTMENTNM, per.SECTIONNM, per.LINENO, per.CARDNO asc
+
+
+----- ****** Employee's List with skill grade  ---
+ select per.DEPARTMENTNM, per.SECTIONNM, per.LINENO, per.CARDNO, per.EMPNAME, per.JOINING_DATE, 
+       per.DESIGNATION, per.BIRTH_DATE, per.GENDER,other.EDUCATION, other.PERFORMANCE skill_grd,per.GROSSSALARY
+from   tb_personal_info per, TB_PERSONAL_INFO_OTHER other
+where  per.COMPANY = other.COMPANY(+)
+and    per.CARDNO  = other.CARDNO(+)
+and    per.COMPANY = :p_company
+---and    per.DEPARTMENTNM = :p_dept
+and    per.active = 0 
+order by per.DEPARTMENTNM, per.SECTIONNM, per.LINENO, per.CARDNO asc

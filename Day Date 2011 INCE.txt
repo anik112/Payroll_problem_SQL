@@ -1,0 +1,14 @@
+
+Select info.cardno, info.empname, info.designation, info.joining_date,
+  info.departmentnm, info.sectionnm, info.lineno,info.shift
+From tb_personal_info info, tb_data_master mas
+Where info.company = :p_company
+And mas.company = :p_com
+And  mas.pdate = :p_date
+And info.cardno = mas.cardno
+
+And info.departmentnm like decode(nvl(:p_dept,’all’),’all’,’%’,:p_dept)
+
+And info.sectionnm like decode(nvl(:p_sect,’all’),’all’,’%’,:p_sect)
+And info.lineno like decode(nvl(:p_line,’all’),’all’,’%’,:p_line)
+Order by info.departmentnm, info.sectionnm, info.lineno, info.cardno asc

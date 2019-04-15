@@ -1,0 +1,19 @@
+select del.cardno
+from tb_data_master mas, TB_LEAVE_DETAILINFO del
+where mas.cardno = del.cardno
+and del.FINYEAR   = :p_year
+and del.FINMONTH  = :p_month
+and mas.pdate between del.START_DATE and del.END_DATE
+and mas.PDATE = :p_date
+order by del.cardno asc
+
+
+
+select del.cardno
+from tb_data_master_temp mas, TB_LEAVE_DETAILINFO del
+where mas.cardno = del.cardno
+and del.FINYEAR   = :p_year
+and del.FINMONTH  = :p_month
+and mas.pdate between del.START_DATE and del.END_DATE
+and mas.PDATE = :p_date
+order by del.cardno asc

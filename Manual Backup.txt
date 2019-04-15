@@ -1,0 +1,7 @@
+ exp payroll/payroll@payroll file=D:\01012011.dmp
+
+
+select nvl(sum(decode(ATTBONUS,0,0,1)),0),ATTBONUS,FINMONTH,FINYEAR
+from TB_MONTH_SALARY
+where cardno = '08853'
+group by ATTBONUS,FINMONTH,FINYEAR

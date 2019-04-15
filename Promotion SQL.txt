@@ -1,0 +1,13 @@
+select pro.CARDNO, pro.EMPNAME, pro.JOININGDATE, pro.CURRDESIGNATION , pro.PRODESIGNATION, 
+       pro.CURRSALARY prv_salary, pro.PROSALARY incr_amt,(pro.CURRSALARY + pro.PROSALARY) gross_salary, pro.EFFECTIVEDATE, pro.FINMONTH ,
+	   pro.REMARKS, info.sectionnm, info.lineno, info.departmentnm ,pro.PROYEAR Fyear
+from TB_PROMOTION_INFO pro,tb_personal_info info
+where pro.cardno = info.cardno
+and   pro.company= info.company
+and   info.sectionnm  like decode(nvl(:p_section,'all'),'all','%',:p_section)
+and   info.departmentnm  like decode(nvl(:p_dept,'all'),'all','%',:p_dept)
+and   info.lineno  like decode(nvl(:p_line,'all'),'all','%',:p_line)
+and   info.active = 0
+order by info.cardno asc
+
+			  

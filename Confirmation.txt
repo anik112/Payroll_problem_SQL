@@ -1,0 +1,7 @@
+select per.cardno, per.empname, per.designation,per .sectionnm,per.lineno,per. salary_grade, per.joining_date,per.grosssalary ,other.PERFORMANCE
+from TB_PERSONAL_INFO_OTHER other, TB_PERSONAL_INFO per
+where per.COMPANY = other.COMPANY
+and   per.cardno  = other.cardno
+and   per.active  = 0
+order by per.cardno asc
+

@@ -1,0 +1,13 @@
+select emp.cardno, emp.empname, emp.departmentnm, emp.sectionnm, emp.lineno,
+       mon.totalpresent,sal.netpayment
+from   TB_MONTH_TOTALDAY MON, TB_MONTH_SALARY SAL, tb_personal_info emp
+WHERE  MON.COMPANY = SAL.COMPANY
+and MON.COMPANY = emp.COMPANY 
+AND MON.FINYEAR = SAL.FINYEAR
+AND MON.FINYEAR = 2015
+AND SAL.FINMONTH = 'July'
+and mon.totalpresent > 6
+AND MON.FINMONTH = SAL.FINMONTH
+AND MON.CARDNO = SAL.CARDNO
+AND MON.CARDNO = emp.CARDNO
+order by emp.cardno asc

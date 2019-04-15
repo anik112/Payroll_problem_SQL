@@ -1,0 +1,29 @@
+
+update TB_PERSONAL_INFO_PICTURE
+set emppicture = ''
+where cardno in ( select cardno from TB_PERSONAL_INFO 
+                  where to_char(joining_date,'rrrr') < 2011)
+				  
+--------
+
+update TB_PERSONAL_INFO_PICTURE
+set emppicture = ''
+where cardno in ( select cardno from TB_PERSONAL_INFO 
+                  where to_char(joining_date,'rrrr') = 2011
+				  and rtrim(to_char(joining_date,'Month') = 'January'))		
+-------
+
+				  
+update TB_PERSONAL_INFO_PICTURE
+set emppicture = ''
+where cardno in ( select cardno from TB_PERSONAL_INFO 
+                  where to_char(joining_date,'rrrr') = 2011
+				  and rtrim(to_char(joining_date,'Month') = 'February'))				  		  
+------
+
+
+update TB_PERSONAL_INFO_PICTURE
+set emppicture = ''
+where cardno in ( select cardno from TB_PERSONAL_INFO 
+                  where to_char(joining_date,'rrrr') = 2011
+				  and rtrim(to_char(joining_date,'Month') = 'March'))	

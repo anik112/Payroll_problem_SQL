@@ -1,0 +1,20 @@
+select per.CARDNO , info.EMPNAME,per.GROSS_SAL,per.ABSNT_POINT, 
+per.ATTN_BONUS_POINT, per.SPECIAL_BONUS, PER.SKILL_GRADE,
+per.JULY, per.AUGUST, per.SEPTEMBER, per.OCTOBER, per.NOVEMBER, per.DECEMBER, per.JANUARY, 
+per.FEBRUARY, per.MARCH, per.APRIL, per.MAY, per.JUNE, per.MONTH_SAL_NO, per.MONTH_SAL_POINT, per.EID_FETTAR_DAY, 
+per.EID_AZHA_DAY, per.EID_DAY_NO, per.EID_DAY_POINT, per.SPECIAL_DPOINT, per.TOTAL_DPOINT, 
+per.P1_POINT,per.P2_POINT, per.P3_POINT, per.P4_POINT, per.P5_POINT,per.P6_POINT, per.P7_POINT,
+per.TOTAL_SCROR, per.PERCENT_GRADE, per.GRADE, per.INCR_AMOUNT, per.ATTN_BONUS_AMT, per.SP_BONUS_AMT, 
+per.SKILL_BONUS_AMT, per.LASTINCR,per.ADJECT_AMT, per.TOTAL_INCR_AMT, per.PERCENT_INCR_AMT,  per.NEW_GROSS_SAL ,
+info.departmentnm, info.sectionnm, info.lineno, info.SHIFT
+from TB_PERFORMANCE_YEARLY per, tb_personal_info info
+where per.company = info.company
+and   per.cardno  = info.cardno
+and   per.company = :p_company
+and   per.finyear = :p_year
+and   info.departmentnm like decode(nvl(:p_dept,'all'),'all','%',:p_dept)
+and   info.sectionnm like decode(nvl(:p_sec,'all'),'all','%',:p_sec)
+and   info.lineno like decode(nvl(:p_line,'all'),'all','%',:p_line)
+and   info.SHIFT like decode(nvl(:p_shift,'all'),'all','%',:p_shift)
+and   info.cardno like decode(nvl(:p_card,'all'),'all','%',:p_card)
+order by info.departmentnm,info.sectionnm,info.lineno,info.cardno asc
