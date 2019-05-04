@@ -37,3 +37,29 @@ select dbms_random.value(1,15) num from dual
 SELECT TRUNC(DBMS_RANDOM.VALUE(0, 100)) FROM DUAL;
 
 ------------------------------------------------------------
+
+
+
+
+UPDATE
+	--TB_DATA_MASTER
+	TB_DATA_MASTER_TEMP
+SET
+   OUTTIME='17:'||TRUNC(DBMS_RANDOM.VALUE(10, 20))||':'
+			||TRUNC(DBMS_RANDOM.VALUE(10, 20))||' PM',
+			
+   OUTTIME_V='17:'||TRUNC(DBMS_RANDOM.VALUE(10, 20))||':'
+			  ||TRUNC(DBMS_RANDOM.VALUE(10, 20))||' PM',
+			  
+   DURATION='9:'||TRUNC(DBMS_RANDOM.VALUE(10, 20)),
+   
+   DURATION_V='9:'||TRUNC(DBMS_RANDOM.VALUE(10, 20)),
+   
+   OTMIN=0,
+   OTPART=0,
+   OTMIN_V=0
+WHERE
+	 --PDATE = TO_DATE('02/11/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	 --AND SECTIONNM='Sewing'
+	 AND FINMONTH='April'
+	 AND FINYEAR=2019

@@ -11,3 +11,24 @@ AND MON.FINMONTH = SAL.FINMONTH
 AND MON.CARDNO = SAL.CARDNO
 AND MON.CARDNO = emp.CARDNO
 order by emp.cardno asc
+
+
+select emp.cardno, emp.empname, emp.departmentnm, emp.sectionnm, emp.lineno,
+       mon.totalpresent,sal.netpayment  
+	       
+from   TB_MONTH_SALARY SAL
+inner join TB_MONTH_TOTALDAY MON
+	  	   on mon.company=sal.company
+		   and mon.finyear=sal.finyear
+		   and mon.cardno=sal.cardno
+		   and mon.finmonth=sal.finmonth
+		   and MON.CARDNO = SAL.CARDNO
+		   and mon.totalpresent > 6
+inner join tb_personal_info emp
+	  	   on MON.CARDNO = emp.CARDNO
+where
+	 sal.company=emp.COMPANY
+	 AND sal.FINYEAR = 2018
+	 AND SAL.FINMONTH = 'July'
+	 order by sal.cardno asc;
+	 
