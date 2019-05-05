@@ -1,0 +1,32 @@
+
+--- ********** update in - out time depend on duration
+UPDATE 
+TB_DATA_MASTER
+-- multipol data SET using single sql 
+SET (OUTTIME,DURATION,OTMIN,OUTTIME_V,DURATION_V,OTMIN_V)=(
+	SELECT -- ** orginal mode
+		   (TO_CHAR(SUBSTR(INTIME,1,2)+:DURTION_NUMBER/*DURATION NUMBER*/)||':'||
+		   TRUNC(DBMS_RANDOM.VALUE(10, 20))||':'||
+		   TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM'),-- update OUTTIME 
+		   
+		   :DURTION_NUMBER/*DURATION NUMBER*/||':'||TRUNC(DBMS_RANDOM.VALUE(10, 20)),-- update DURATION
+		   
+    	   ((:DURTION_NUMBER/*DURATION NUMBER*/-9)*60),-- update OTMIN 
+		   
+		   -- ** complience mode
+		   (TO_CHAR(SUBSTR(INTIME,1,2)+:DURTION_NUMBER/*DURATION NUMBER*/)||':'||
+		   TRUNC(DBMS_RANDOM.VALUE(10, 20))||':'||
+		   TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM'), -- update OUTTIME_V 
+		   
+		   :DURTION_NUMBER/*DURATION NUMBER*/||':'||TRUNC(DBMS_RANDOM.VALUE(10, 20)), -- update DURATION_V
+		   
+    	   ((:DURTION_NUMBER/*DURATION NUMBER*/-9)*60) -- update OTMIN_V 
+		   
+	FROM   NEW_TABLE
+	WHERE  CARDNO=TB_DATA_MASTER.CARDNO
+	AND    PDATE=TB_DATA_MASTER.PDATE
+	)
+WHERE  FINYEAR=2019
+AND	   FINMONTH='March'
+AND	   CARDNO='018979'
+--AND PDATE = TO_DATE('03/07/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS');
