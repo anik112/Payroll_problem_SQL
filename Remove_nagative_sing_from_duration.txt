@@ -1,0 +1,38 @@
+select * from tb_data_master_temp 
+where
+FINYEAR = 2019
+AND FINMONTH = 'April'
+and to_number(SUBSTR(DURATION,1,INSTR(DURATION,':')-1))<0
+
+/*
+# substr() -> using for devided string using cahr position
+# Iinstr() -> using for devided string using char , like ':' 
+
+-----------
+[ to_number(SUBSTR(DURATION,1,INSTR(DURATION,':')-1))<0 ] -> 
+this method find out nagative value
+-----------
+[ TO_CHAR(SUBSTR(DURATION,1,INSTR(DURATION,':')-1)*-1) ] -> 
+this method convart string to number and * (-1)
+for make nagative number to positive.
+*/
+
+---- ***********  Remove nagative sing from duration
+UPDATE
+TB_DATA_MASTER_TEMP
+SET
+DURATION=TO_CHAR(SUBSTR(DURATION,1,INSTR(DURATION,':')-1)*-1)||':'||SUBSTR(DURATION,INSTR(DURATION,':')+1,2)
+WHERE
+FINYEAR = 2019
+AND FINMONTH = 'April'
+and TO_NUMBER(SUBSTR(DURATION,1,INSTR(DURATION,':')-1))<0
+
+
+---**********
+SECTIONNM = 'Cutting Worker' 
+AND
+
+
+
+
+
