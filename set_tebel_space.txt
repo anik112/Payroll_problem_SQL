@@ -6,3 +6,11 @@ alter database tempfile 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\TEMP01.DBF' re
 create tablespace INDX datafile 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\INDX01.DBF' size 100M
 create tablespace USRPICTURE datafile 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\USRPICTURE01.DBF'
 size 100M
+
+
+
+----  create tablespace
+
+create tablespace INDX datafile 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\INDX01.DBF' size 100M
+create tablespace USRPICTURE datafile 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\USRPICTURE01.DBF'
+size 100M

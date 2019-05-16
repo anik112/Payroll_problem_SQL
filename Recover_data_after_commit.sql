@@ -1,0 +1,19 @@
+-- Flash back open sql
+ALTER DATABASE FLASHBACK ON 
+
+/* 
+
+[ SELECT AS OF  ] -> This is oracle FLASHBACK TECHNOLOGY 
+
+[ TIMESTAMP ] -> This datatype use for match time and date 
+
+TO_TIMESTAMP() -> This function convart string to TIMESTAP format.
+
+*/
+
+SELECT * FROM TB_PERSONAL_INFO AS OF TIMESTAMP TO_TIMESTAMP('04-MAY-2019 10:30:00', 'DD-MON-YYYY HH24:MI:SS') WHERE CARDNO=1822904;
+
+-- Inser data from FLASHBACK table into current table.
+INSERT INTO MY_TABLE(
+	   SELECT * FROM MY_TABLE AS OF TIMESTAMP TO_TIMESTAMP('04-MAY-2017 13:30:00', 'DD-MON-YYYY HH24:MI:SS') WHERE ID=1822904
+);

@@ -1,0 +1,480 @@
+CREATE OR REPLACE procedure cardno_change(p_company in varchar2,  p_com in number,
+                                          old_cardno in varchar2, new_cardno in varchar2,
+										  new_company in varchar2,new_com in number)
+is
+
+begin
+
+	   begin
+       update tb_personal_info
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_INFO_PICTURE
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_INFO_SIGN
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_EDUCATIONAL
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_EMPLOYMENT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_PROFESSIONAL
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERSONAL_TRAINING
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+       begin
+       update TB_PERSONAL_INFO_OTHER
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+       ------------***********
+       -------------
+       commit;
+
+	   begin
+       update TB_MONTH_SALARY
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_MONTH_SALARY_TEMP
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_MONTH_TOTALDAY
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_MONTH_TOTALDAY_TEMP
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+	   -------
+	   -------
+	   commit;
+
+	   begin
+       update TB_ADVANCEORLOAN_INFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_ARREARAMOUNT_INFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_BONUS_AMOUNT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_BONUS_AMOUNT_SP
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_EMP_DEDUCTION_BILL
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+       begin
+	   update TB_EMP_HALF_DUTY
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_EMP_HOLIDAY_ALLOW
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_EMP_LAUNCH_BILL
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+       ------
+	   ------
+	   commit;
+
+	   begin
+       update TB_EMP_PUNISHMENT_RECORD
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_EMP_TAX_AMOUNT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_GRATUITY_DETAILS_AMT
+       set    company   = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_LEAVE_DETAILINFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_LEAVE_MASTERINFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_LEAVE_SUMMARY
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+       ---------
+	   ---------
+	   commit;
+
+	   begin
+       update TB_PERFORMANCE_YEARLY
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PERFORMANCE_EMP
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+
+	   begin
+	   update TB_PF_DETAILS_AMT
+       set    company = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PF_LOAN_AMT
+       set    company = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PF_MONTHLY_AMT
+       set    company = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+       begin
+       update TB_PF_YEARLY_ITERESTAMT
+       set    company = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_PF_Y_N
+       set    company = new_company,
+              empno   = new_cardno
+       where  company = p_company
+       and    empno   = old_cardno;
+       exception
+       when others then null;
+	   end;
+	   -----------
+	   ----------**************
+	   commit;
+
+	   begin
+       update TB_PROMOTION_INFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_RESIGNATION_INFO
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_ROASTER_INFO
+       set    companyid = new_com,
+              cardno    = new_cardno
+       where  companyid = p_com
+       and    cardno    = old_cardno;
+       exception
+       when others then null;
+	   end;
+	   -------
+	   -------
+	   commit;
+
+	   begin
+       update TB_SALARY_HALF_AMOUNT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_YEARLY_ELEAVE_AMOUNT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_YEARLY_ELEAVE_DAYS
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_YEARLY_LEAVE_ABSENT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+
+	   begin
+       update TB_YEARLY_LEAVE_AMOUNT
+       set    company = new_company,
+              cardno  = new_cardno
+       where  company = p_company
+       and    cardno  = old_cardno;
+       exception
+       when others then null;
+	   end;
+	   commit;
+
+      for c1rec in (select distinct finyear,finmonth,cardno, pdate
+                    from   tb_data_master
+                    where  company = p_com
+                    and    cardno  = old_cardno)
+
+          loop
+
+		  begin
+          update TB_DATA_MASTER
+          set    company   = new_com,
+		         cardno    = new_cardno
+          where  company   = p_com
+          and    finyear   = c1rec.finyear
+          and    finmonth  = c1rec.finmonth
+		  and    pdate     = c1rec.pdate
+          and    cardno    = old_cardno;
+          exception
+          when others then null;
+	      end;
+
+
+          begin
+          update TB_DATA_MASTER_TEMP
+          set    company   = new_com,
+		         cardno    = new_cardno
+          where  company   = p_com
+          and    finyear   = c1rec.finyear
+          and    finmonth  = c1rec.finmonth
+		  and    pdate     = c1rec.pdate
+          and    cardno    = old_cardno;
+          exception
+          when others then null;
+	      end;
+
+          commit;
+          end loop;
+
+commit;
+exception
+when others then null;
+end;
+/
+
