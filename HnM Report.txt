@@ -1,0 +1,65 @@
+--------------------
+---------*********** Previous Rules of H&M
+SELECT per.DEPARTMENTNM, per.SECTIONNM, per.LINENO,per.cardno,sal.empname,sal.designation,
+       per.JOINING_DATE, SAL.SAL_GRD,
+	   sal.BASICSAL,sal.houserent,sal.medical medisal,sal.TRANSPORT,sal.FOOD_ALLOW,
+	   sal.GROSSSAL, mon.GOVTDAY, mon.HOLIDAY, mon.compensive, mon.casual, mon.earned, mon.medical,
+	   mon.totalpresent, mon.totalabsent, mon.ABSENT_DAY, mon.ABSENT_DAY1 ,
+	   sal.absent_deduc, sal.ABSENT_DED1, sal.TOT_ABS_DED,
+	   sal.totalsalary,  mon.totalholiday, mon.totalleave,
+	   mon.totalworkingday,(MON.OTMIN+mon.OTMINPART)Total_OtHr, 
+	   (sal.OTAMOUNT + sal.EXTRA_OTAMT)Total_OTAmt, 
+	   sal.TF_BILL, (sal.WK_DUTY_BILL + sal.FS_DUTY_BILL + sal.ATTBONUS)AttnBonus_HoliBill,
+	   sal.useless Total_Ded, sal.OTRATE,
+       (sal.NETPAYMENT +sal.EXTRA_OTAMT +sal.WK_DUTY_BILL +sal.FS_DUTY_BILL +sal.TF_BILL)NETPAYMENT, 
+	   sal.ADVANCE_DEDUC, sal.ARREAR_AMT, per.GENDER
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  mon.company    ='Vision Apparels (Pvt.) Ltd.-1'
+and    mon.company    = sal.company
+and    mon.company    = per.company
+AND    mon.finyear    = 2016
+AND    mon.finmonth   = 'May' 
+AND    mon.finyear    = sal.finyear 
+AND    mon.finmonth   = sal.finmonth 
+AND    mon.cardno     = sal.cardno 
+AND    mon.cardno     = per.cardno 
+and    per.active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active) 
+ORDER BY per.lineno,mon.cardno, per.DESIGNATION ASC
+-------- 0 active and  1 inactive
+
+
+
+
+
+--------------------
+---------*********** New Rules of H&M
+SELECT per.DEPARTMENTNM, per.SECTIONNM, per.LINENO,per.cardno,sal.empname,sal.designation,
+       per.JOINING_DATE, SAL.SAL_GRD,
+	   sal.BASICSAL,sal.houserent,sal.medical medisal,sal.TRANSPORT,sal.FOOD_ALLOW,
+	   sal.GROSSSAL, mon.GOVTDAY, mon.HOLIDAY, mon.compensive, mon.casual, mon.earned, mon.medical,
+	   mon.totalpresent, mon.totalabsent, mon.ABSENT_DAY, mon.ABSENT_DAY1 ,
+	   sal.absent_deduc, sal.ABSENT_DED1, sal.TOT_ABS_DED,
+	   sal.totalsalary,  mon.totalholiday, mon.totalleave,
+	   mon.totalworkingday,(MON.OTMIN+mon.OTMINPART)Total_OtHr, 
+	   (sal.OTAMOUNT + sal.EXTRA_OTAMT)Total_OTAmt, 
+	   sal.TF_BILL_PT TF_BILL, (sal.ATTBONUS)ATTBONUS,
+	   sal.useless Total_Ded, sal.OTRATE,
+       (sal.NETPAYMENT +sal.EXTRA_OTAMT +sal.TF_BILL_PT)NETPAYMENT, 
+	   sal.ADVANCE_DEDUC, sal.ARREAR_AMT, per.GENDER
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  mon.company    ='Vision Apparels (Pvt.) Ltd.-1'
+and    mon.company    = sal.company
+and    mon.company    = per.company
+AND    mon.finyear    = 2016
+AND    mon.finmonth   = 'May' 
+AND    mon.finyear    = sal.finyear 
+AND    mon.finmonth   = sal.finmonth 
+AND    mon.cardno     = sal.cardno 
+AND    mon.cardno     = per.cardno 
+and    per.active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active) 
+ORDER BY per.lineno,mon.cardno, per.DESIGNATION ASC
+
+
+
+
+
