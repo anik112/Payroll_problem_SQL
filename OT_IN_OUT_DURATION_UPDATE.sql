@@ -1,3 +1,8 @@
+
+------------------- update out time and generat min ,sec dynamic --------------------
+/*
+TRUNC(DBMS_RANDOM.VALUE(30, 40)) this method return a int value between given range
+*/
 UPDATE
 	TB_DATA_MASTER
 SET
@@ -6,113 +11,39 @@ SET
 WHERE
 	 OUTTIME_V is null
 	 and finyear=2019
-	 and finmonth='May'
-	 
-	 
-select TO_CHAR(SUBSTR(OUTTIME,0,2)-7),INSTR(OUTTIME,':') from tb_data_master
-	 
-	 
-	 
-UPDATE
-	TB_DATA_MASTER_TEMP
-SET
-   INTIME='07:'||TRUNC(DBMS_RANDOM.VALUE(10, 20))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 20))||' AM'
+	 and finmonth='May';
+
 	
-WHERE
-	 INTIME is null
-	 and finyear=2019
-	 and finmonth='May'
-	 
-
-
+------------------------------------- create new table like as tb_data_master ----------------------------	
 
 create table new_table as ( select * from tb_data_master where FINYEAR=2019 and FINMONTH='May');
 
-UPDATE
-	TB_DATA_MASTER
-SET
-   OTMIN=0,
-   OTMIN_V=0
-WHERE
-	 OTMIN < 0
-	 and finyear=2019
-	 and finmonth='May'
-	
----------------------------------------------------------------------------------------------------------------------------	
-
-SELECT PDATE,
-(((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2),
-DURATION,
-SUBSTR(DURATION,INSTR(DURATION,':')+1,2) Min,
-
-CASE WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 30 THEN 0
-
-	 WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 28
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) <60 THEN 30
-		  
-	 WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 58
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 88 THEN 60
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 88
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 116 THEN 90
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 116
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 148 THEN 120
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 148
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 178 THEN 150
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 178
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 206 THEN 180
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 206
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 238 THEN 210
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 238
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 268 THEN 240
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 268
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 298 THEN 240
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 298
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 328 THEN 300
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 328
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 358 THEN 330
-		  
-	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) > 358
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 388 THEN 360
-		  		  
-END abs
-
-FROM TB_DATA_MASTER WHERE SUBSTR(DURATION,1,INSTR(DURATION,':')-1) < 11
-AND SUBSTR(DURATION,1,INSTR(DURATION,':')-1) > 0
-AND FINYEAR=2019
-AND FINMONTH='May'
-AND CARDNO='000684'
-AND PDATE != TO_DATE('05/08/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
-
----------------------------------------------------------------------------------------------------------------------------------
+drop table new_table; -- Drop new table
 
 
-create table new_table as ( select * from tb_data_master where FINYEAR=2019 and FINMONTH='May');
 
-drop table new_table
-
-
-------------------------------------------------------------------------------------------------------------------
-
-
+---------------------------- Update OT min, OT min_v and insert round ot figure ------------------------------------------------
+/*
+=> INSTR(DURATION,':') this function have two perametter. First one is get string and second one is get a char.
+    This function using for get the location of given char.
+=> SUBSTR(DURATION,1,5) this function have three perametter. First one get string, second and thard one is get vhar location.
+    This function using for split string between given range/char location. 
+=> CASE WHEN (Condition) THEN (Result) END; this keyword stractur like as if else statement.
+*/
 
 UPDATE TB_DATA_MASTER
 SET (OTMIN)=(
 	SELECT 
-	CASE WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 30 THEN 0
+	CASE 
+	-- in this statement SUBSTR(DURATION,1,INSTR(DURATION,':')-1) get hours of Duration.
+	-- then -8.5 using for substract 8.5 hours from main hours.
+	-- * 60 using for multiply 60 with get hours and find out OT min.
+	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 30 THEN 0
 
-	 WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 28
-	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) <60 THEN 30
+	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 28
+	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 60 THEN 30
 		  
-	 WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 58
+	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 58
 	 	  AND (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) < 88 THEN 60
 		  
 	WHEN (((SUBSTR(DURATION,1,INSTR(DURATION,':')-1)-8.5))*60)+SUBSTR(DURATION,INSTR(DURATION,':')+1,2) >= 88
@@ -154,7 +85,7 @@ END
 	AND NEW_TABLE.PDATE=TB_DATA_MASTER.PDATE
 )
 WHERE
-SUBSTR(DURATION,1,INSTR(DURATION,':')-1) <= 11
+SUBSTR(DURATION,1,INSTR(DURATION,':')-1) <= 11 -- check Duration hours lower and equal to 11 ?
 AND FINMONTH='May'
 AND FINYEAR=2019
 AND PDATE = TO_DATE('05/27/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
