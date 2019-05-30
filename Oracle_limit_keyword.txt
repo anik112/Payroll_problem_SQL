@@ -1,0 +1,7 @@
+select * from tb_data_master where finyear=2019 and finmonth='January' and ROWNUM <= 5;
+
+
+
+
+
+SELECT * FROM tb_data_master WHERE ROWNUM <= 5;
