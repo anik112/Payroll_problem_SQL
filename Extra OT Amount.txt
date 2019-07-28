@@ -24,7 +24,7 @@ WHERE
 	 --AND TB_MONTH_SALARY_HF.CARDNO='019155'
 
 
----- DEVELOP BY ANIK ---------------------------------------------
+---- DEVELOPE BY ANIK ---------------------------------------------
 
 
 SELECT mon.cardno ,per.empname,per.designation,sal.BASICSAL,sal.GROSSSAL,sal.OTAMOUNT,per.DEPARTMENTNM,

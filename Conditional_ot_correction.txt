@@ -1,0 +1,31 @@
+
+-- select data using another table
+/* like
+	Which card no get OT On the 23rd, they will not give the OT on 	the 27th.
+
+*/
+select * from tb_data_master where cardno=(
+ 	   select cardno from new_table_s where cardno=(
+	   		  select cardno from tb_personal_info where OTORG='Y' and active=0 and tb_personal_info.cardno=new_table_s.cardno
+	   )
+	   and finmonth='July' and finyear=2019 and otmin=0 and PDATE = TO_DATE('07/13/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	   and tb_data_master.cardno=new_table_s.cardno
+)and finmonth='July' and finyear=2019 and PDATE = TO_DATE('07/27/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+
+
+
+
+create table new_table_f as ( select * from tb_data_master where cardno=(
+ 	   select cardno from new_table_s where cardno=(
+	   		  select cardno from tb_personal_info where OTORG='Y' and active=0 and tb_personal_info.cardno=new_table_s.cardno
+	   )
+	   and finmonth='July' and finyear=2019 and otmin=0 and PDATE = TO_DATE('07/24/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	   and tb_data_master.cardno=new_table_s.cardno
+)and finmonth='July' and finyear=2019 and PDATE = TO_DATE('07/23/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+);
+
+
+create table new_table_s as ( select * from tb_data_master where FINYEAR=2019 and FINMONTH='July' AND PDATE = TO_DATE('07/27/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS'));
+
+
+DROP TABLE NEW_TABLE_f
