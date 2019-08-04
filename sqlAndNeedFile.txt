@@ -1,0 +1,47 @@
+https://sourceforge.net/projects/ireport/files/iReport%20Plugin%20for%20NetBeans/iReport-5.6.0/
+
+
+jdbc:mysql://localhost:3306/PAYROLL
+
+
+
+select * from tb_personal_info where 
+company=(
+select company from tb_user_info where user_name='anik'
+)and 
+departmentnm=(
+select departmentnm from tb_section_info where sectionnm='IE'
+)and
+sectionnm='IE'
+order by empid asc;
+
+
+
+// sql using if else
+
+/*
+update tb_personal_info set active=1 where designation='Trainee Supervisor';
+
+select empname,active from tb_personal_info where active=1 and designation='Trainee Supervisor';
+
+commit;
+*/
+
+update tb_personal_info set active=
+case
+when designation='Trainee Supervisor' then 1
+when designation='Assistant Officer' then 0
+end;
+
+commit;
+
+
+SET SERVEROUTPUT ON;
+DECLARE
+	V_SALARY NUMBER(8);
+BEGIN
+	SELECT SALARY INTO V_SALARY FROM EMPLOYEES
+	WHERE EMPLOYEEID=100
+	DBMS_OUTPUT.PUT_LINE(V_SALARY);
+END;
+
