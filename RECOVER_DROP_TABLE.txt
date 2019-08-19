@@ -1,0 +1,6 @@
+ 
+// See table name from databse recyclebin
+select original_name from dba_recyclebin;
+
+// recover delete data from recyclebin 
+flashback table CHECKINOUT to before drop;
