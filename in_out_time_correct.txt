@@ -11,3 +11,53 @@ select * from tb_data_master where intime is null
 	 
 	 
 select * from tb_data_Master where PDATE = TO_DATE('03/22/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS');
+
+
+-----------------------------------------------------------------------------
+
+
+UPDATE
+	  TB_DATA_MASTER
+	  --TB_DATA_MASTER_TEMP
+SET
+   OUTTIME='17:'||TRUNC(DBMS_RANDOM.VALUE(15, 40))||':'
+			||TRUNC(DBMS_RANDOM.VALUE(10, 15))||' PM',
+   OUTTIME_V='17:'||TRUNC(DBMS_RANDOM.VALUE(15, 40))||':'
+			  ||TRUNC(DBMS_RANDOM.VALUE(10, 15))||' PM',
+   DURATION='9:'||TRUNC(DBMS_RANDOM.VALUE(15, 40)),
+   DURATION_V='9:'||TRUNC(DBMS_RANDOM.VALUE(15, 40)),
+   OTMIN=0,
+   OTPART=0,
+   OTMIN_V=0
+WHERE
+	 PDATE = TO_DATE('09/30/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	 AND FINMONTH='September'
+	 AND FINYEAR=2019
+	 AND CARDNO IN (SELECT CARDNO FROM TB_PERSONAL_INFO WHERE DEPARTMENTNM='Cutting')
+	 AND OTMIN > 0
+	 
+	 
+	 
+	 
+	 
+	 
+SELECT * FROM TB_DATA_MASTER WHERE PDATE = TO_DATE('09/30/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	 AND FINMONTH='September'
+	 AND FINYEAR=2019
+	 AND CARDNO IN (SELECT CARDNO FROM TB_PERSONAL_INFO WHERE DEPARTMENTNM='Quality' )
+	 AND OTMIN > 0
+
+
+
+---------------------------------------------------------
+
+
+UPDATE 
+	   TB_DATA_MASTER
+SET
+   OUTTIME= SUBSTR(OUTTIME,0,5)||':'||SUBSTR(OUTTIME,6,11)
+   
+WHERE PDATE = TO_DATE('09/11/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+AND FINMONTH='September'
+AND FINYEAR=2019
+AND LENGTH(OUTTIME) != 11
