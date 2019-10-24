@@ -1,0 +1,9 @@
+-- select data using str length
+select * from userinfo
+where len(Badgenumber)=10
+
+-- update data using str length
+update userinfo
+set Badgenumber = "00"&Badgenumber
+where len(Badgenumber)=8
+
