@@ -184,3 +184,17 @@ AND PROCESSDATE=:TODAY
 SELECT * FROM TB_TRANSFER_INFO
 WHERE PROCESSBY='NDL'
 AND PROCESSDATE=:TODAY
+
+
+
+
+-----------------------------
+
+
+
+select count(distinct pr_info.cardno),count(distinct data_master.cardno),pr_info.lineno,
+pr_info.sectionnm,pr_info.departmentnm
+from tb_personal_info pr_info,tb_data_master data_master
+where pr_info.cardno=data_master.cardno
+and data_master.pdate=TO_DATE('08/22/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+group by pr_info.departmentnm,pr_info.sectionnm,pr_info.lineno
