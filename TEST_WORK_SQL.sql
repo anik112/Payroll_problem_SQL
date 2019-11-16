@@ -210,3 +210,80 @@ and finmonth='November'
 and cardno='000006'
 
 ----------------------------
+
+
+declare
+emp_name varchar(20) := 'anik paul';
+begin
+dbms_output.put_line(emp_name);
+end;
+
+
+
+select
+count(distinct data_master.cardno) as present,
+pr_info.lineno,
+pr_info.sectionnm
+from tb_personal_info pr_info,tb_data_master data_master
+where pr_info.cardno=data_master.cardno
+and data_master.pdate=TO_DATE('01/01/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+group by pr_info.departmentnm,pr_info.sectionnm,pr_info.lineno
+
+
+
+select * from 
+(
+	(select count(distinct pr_info.cardno) as total from tb_personal_info pr_info
+	where active = 0
+	group by pr_info.departmentnm,pr_info.sectionnm,pr_info.lineno) as tb1,
+	(select count(distinct data_master.cardno) as present, pr_info.lineno, pr_info.sectionnm
+	from tb_personal_info pr_info,tb_data_master data_master
+	where pr_info.cardno=data_master.cardno
+	and data_master.pdate=TO_DATE('01/01/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS')
+	group by pr_info.departmentnm,pr_info.sectionnm,pr_info.lineno) as tb2
+)
+
+
+function CF_2Formula return Number is
+total number:=0;
+begin
+  select count(distinct pr_info.cardno) into total
+  from tb_personal_info pr_info
+  where pr_info.sectionnm=:sectionnm
+  and pr_info.lineno=:lineno;
+  
+  return total;
+end;
+
+
+--------------------------------------------------------
+
+
+SELECT
+COUNT(DISTINCT DATA_MASTER.CARDNO) AS PRESENT,
+PR_INFO.LINENO,
+PR_INFO.SECTIONNM
+FROM TB_DATA_MASTER DATA_MASTER,TB_PERSONAL_INFO PR_INFO
+WHERE PR_INFO.COMPANY='Natural Denims Ltd.'
+AND DATA_MASTER.COMPANY IN (
+	  SELECT COMID FROM TB_COMPANY_INFO WHERE COMPANY=PR_INFO.COMPANY
+	  )
+AND DATA_MASTER.FINYEAR=2019
+AND DATA_MASTER.FINMONTH='January'
+AND PDATE=TO_DATE('01/01/2019', 'MM/DD/YYYY')
+AND PR_INFO.ACTIVE=0
+AND DATA_MASTER.CARDNO=PR_INFO.CARDNO
+GROUP BY PR_INFO.DEPARTMENTNM,PR_INFO.SECTIONNM,PR_INFO.LINENO
+
+
+
+declare
+names varchar(20):= 'secdtion';
+begin
+if names='section' then
+dbms_output.put_line('Yes Wrked');
+else dbms_output.put_line('No worked');
+end if;
+end;
+
+
