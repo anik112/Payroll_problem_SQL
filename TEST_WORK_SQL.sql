@@ -287,3 +287,19 @@ end if;
 end;
 
 
+-------------------------------------------------------------------------
+
+
+SELECT DEPARTMENT,CARDNO,EMPNAME,DESIGNATION,JOININGDATE,RESIGDATE,SALARY 
+FROM TB_RESIGNATION_INFO
+WHERE COMPANY='Natural Denims Ltd.'
+AND RESIGDATE BETWEEN TO_DATE(:MON||'/01/'||:YER,'MM/DD/YYYY') AND 
+			  		  TO_DATE(:MON||'/'||
+					  (SELECT MONTH_DAY FROM TB_MONTH WHERE SLNO=TO_NUMBER(:MON,'99'))
+					  ||'/'||:YER,'MM/DD/YYYY');
+
+
+
+--SELECT TO_NUMBER('01', '99') FROM DUAL
+
+
