@@ -1,0 +1,24 @@
+--************** create function/procedure ***********
+CREATE OR REPLACE [FUNCTION/PROCEDURE] Food_Salary (GROSSSAL NUMBER, workertype varchar2)RETURN NUMBER IS
+	 v_fdallow_f   number;
+BEGIN
+
+    begin
+    select figure into v_fdallow_f from TB_SETUP_INFO
+	where  item_name     = 'FoodAllow'
+	and    emp_category  = workertype;
+    exception
+    	when no_data_found then v_fdallow_f := 0;
+               when others then v_fdallow_f := 0;
+    end;
+    return v_fdallow_f;
+exception
+when others then null;
+
+END;
+/
+
+-- ************** run function or procedure *************
+BEGIN
+Food_Salary(12000,'Worker');
+END;
