@@ -1,3 +1,5 @@
+Oracle:
+
  exp payroll/payroll@payroll file=D:\01012011.dmp
 
 
