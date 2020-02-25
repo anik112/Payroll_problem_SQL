@@ -1,0 +1,19 @@
+SELECT NAME, VALUE DISPLAY_VALUE, ISDEFAULT
+FROM V$PARAMETER
+WHERE NAME = 'open_cursors';
+
+
+
+SELECT COUNT(*), user_name 
+FROM V$OPEN_CURSOR
+WHERE user_name = 'SYS'
+GROUP BY user_name;
+
+
+
+SELECT NAME, VALUE DISPLAY_VALUE, ISDEFAULT
+FROM V$PARAMETER
+WHERE NAME = 'open_cursors';
+
+
+alter system set open_cursors = 2000 scope=both;
