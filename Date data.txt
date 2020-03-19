@@ -12,3 +12,6 @@ And info.departmentnm like decode(nvl(:p_dept,’all’),’all’,’%’,:p_dept)
 And info.sectionnm like decode(nvl(:p_sect,’all’),’all’,’%’,:p_sect)
 And info.lineno like decode(nvl(:p_line,’all’),’all’,’%’,:p_line)
 Order by info.departmentnm, info.sectionnm, info.lineno, info.cardno asc
+
+-- STRING TO TIME CONVERT
+select TO_CHAR(TO_DATE(PTIME, 'HH24:MI:SS'),'HH24:MI:SS am')  from tb_data_out
