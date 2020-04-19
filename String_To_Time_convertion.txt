@@ -7,10 +7,10 @@ And mas.company = :p_com
 And  mas.pdate = :p_date
 And info.cardno = mas.cardno
 
-And info.departmentnm like decode(nvl(:p_dept,’all’),’all’,’%’,:p_dept)
+And info.departmentnm like decode(nvl(:p_dept,â€™allâ€™),â€™allâ€™,â€™%â€™,:p_dept)
 
-And info.sectionnm like decode(nvl(:p_sect,’all’),’all’,’%’,:p_sect)
-And info.lineno like decode(nvl(:p_line,’all’),’all’,’%’,:p_line)
+And info.sectionnm like decode(nvl(:p_sect,â€™allâ€™),â€™allâ€™,â€™%â€™,:p_sect)
+And info.lineno like decode(nvl(:p_line,â€™allâ€™),â€™allâ€™,â€™%â€™,:p_line)
 Order by info.departmentnm, info.sectionnm, info.lineno, info.cardno asc
 
 -- STRING TO TIME CONVERT
