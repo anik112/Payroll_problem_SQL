@@ -1,0 +1,44 @@
+---- last 3 month net payment and personal information
+
+select  a.DEPT_NAME, a.SECTION_NAME, a.LINENO, a.CARDNO, a.EMPNAME, a.DESIGNATION, a.SALARY_GRADE, 
+        a.BIRTH_DATE, a.JOINING_DATE, a.GROSSSALARY,  a.FATHER_NAME, a.MOTHER_NAME, a.HOUSBANDNAME, 
+		a.MARITALSTATUS, a.GENDER, a.PRESENT_ADDRESS, a.PERMANENTADDRESS, 
+		a.NID ,  a.BIRTH_CERTIFICATE_NO, a.OWN_CELLNO, a.NOMINEE_CELLNO,  
+		a.BANK_NAME, a.AC_NO, 
+		b.NET_PAYMENT Sal_Dec_19, c.NET_PAYMENT Sal_Jan_20, d.NET_PAYMENT Sal_Feb_20  
+from 
+(select info.DEPT_NAME, info.SECTION_NAME, info.LINENO, info.CARDNO, info.EMPNAME, info.DESIGNATION, info.SALARY_GRADE, 
+        info.BIRTH_DATE, info.JOINING_DATE, info.GROSSSALARY,  info.FATHER_NAME, info.MOTHER_NAME, info.HOUSBANDNAME, 
+		info.MARITALSTATUS, info.GENDER,info.PRESENT_ADDRESS,info.PERMANENTADDRESS, 
+		other.NID ,  other.BIRTH_CERTIFICATE_NO, other.OWN_CELLNO, other.NOMINEE_CELLNO,  
+		info.BANK_NAME, info.AC_NO
+from   TB_PERSONAL_INFO info,  TB_PERSONAL_INFO_OTHER other
+where  info.COMPANY_NAME   = 'Amex Knitting & Dyeing Ind. Ltd'
+and    info.COMPANY_NAME   =  other.COMPANY
+and    info.active    = 0
+and    info.cardno    =  other.cardno
+order by info.DEPT_NAME, info.SECTION_NAME, info.LINENO, info.CARDNO asc)a,
+( select sal.NET_PAYMENT , info.CARDNO
+  from  TB_MONTHSALARY sal,  TB_PERSONAL_INFO info
+  where  info.COMPANY_NAME   = 'Amex Knitting & Dyeing Ind. Ltd'
+  and    info.COMPANY_NAME   =  sal.COMPANY
+  and   sal.FINYEAR    = 2019
+  and   sal.FINMONTH   = 'December'
+  and   sal.EMPCODE     = info.CARDNO)b,  
+( select sal.NET_PAYMENT, info.CARDNO
+  from  TB_MONTHSALARY sal,  TB_PERSONAL_INFO info
+  where  info.COMPANY_NAME   = 'Amex Knitting & Dyeing Ind. Ltd'
+  and    info.COMPANY_NAME   =  sal.COMPANY
+  and   sal.FINYEAR    = 2020
+  and   sal.FINMONTH   = 'January'
+  and   sal.EMPCODE     = info.CARDNO)c,  
+( select sal.NET_PAYMENT, info.CARDNO
+  from  TB_MONTHSALARY sal,  TB_PERSONAL_INFO info
+  where  info.COMPANY_NAME   = 'Amex Knitting & Dyeing Ind. Ltd'
+  and    info.COMPANY_NAME   =  sal.COMPANY
+  and   sal.FINYEAR    = 2020
+  and   sal.FINMONTH   = 'February'
+  and   sal.EMPCODE     = info.CARDNO)d
+where a.cardno = b.cardno(+)
+and   a.cardno = c.cardno(+)
+and   a.cardno = d.cardno(+)  
