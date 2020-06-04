@@ -1,0 +1,11 @@
+select cardno,ac_no from tb_personal_info where company='Adury Fashion & Print Ltd.' and WORKERTYPE !='Worker' and active=0
+
+-- this operation helps us import data from another user
+grant select on tb_personal_info to payroll
+
+
+-- this is update operation, which is help's us update a coloum by another user table data
+
+update tb_personal_info pr
+set ac_no=(select ac_no from test.tb_personal_info where test.tb_personal_info.CARDNO=pr.CARDNO)
+where company='Adury Fashion & Print Ltd..' and WORKERTYPE !='Worker' and active=0
