@@ -7,3 +7,8 @@ update userinfo
 set Badgenumber = "00"&Badgenumber
 where len(Badgenumber)=8
 
+--  update from another table using join 
+UPDATE userinfo
+INNER JOIN userinfo02 ON [userinfo].[ssn] = [userinfo02].[cardno]
+SET [userinfo].[cardno] = [userinfo02].[SECRETENO]
+
