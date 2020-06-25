@@ -1,0 +1,3 @@
+update tb_company_info 
+set HRSIGN_WORKER=empty_blob()
+where comid=2
