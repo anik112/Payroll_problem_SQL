@@ -9,3 +9,14 @@ grant select on tb_personal_info to payroll
 update tb_personal_info pr
 set ac_no=(select ac_no from test.tb_personal_info where test.tb_personal_info.CARDNO=pr.CARDNO)
 where company='Adury Fashion & Print Ltd..' and WORKERTYPE !='Worker' and active=0
+
+
+--- update
+
+
+update payroll.tb_personal_info pr1
+set (pr1.cash_type,pr1.ac_no,pr1.bank_name) = 
+	(select pr2.cash_type,pr2.ac_no,pr2.bank_name from test.tb_personal_info pr2 where pr2.cardno=pr1.cardno)
+where pr1.sectionnm='Printing Staff' 
+and pr1.bank_name='CASH'
+and  pr1.company='Adury Fashion & Print Ltd..'

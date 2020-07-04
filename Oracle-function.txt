@@ -1,0 +1,93 @@
+SELECT SUM(GROSSSAL) CMG,
+SUM(OTAMOUNT) OT,
+SUM(EXTRA_OTAMT) EOT,
+SUM(OTAMOUNT+EXTRA_OTAMT) CMO,
+SUM(ABSENT_DEDUC) CMA,
+
+FROM TB_MONTH_SALARY
+WHERE COMPANY='Natural Denims Ltd.'
+AND FINYEAR=2019
+AND FINMONTH='January'
+
+
+
+
+CREATE OR REPLACE FUNCTION Basic_Salary (Gross_Sal NUMBER, Workertype varchar2) RETURN number IS
+
+   v_medical_f   number:= 0;
+   v_convance_f  number:= 0;
+   v_fdallow_f   number:= 0;
+   v_status_f    number:= 0;
+   v_basic_f     number:= 0;
+
+   v_sl          number:= 0;
+
+   v_salary      NUMBER:= 0;
+
+BEGIN
+
+  begin
+  select figure into v_medical_f from TB_SETUP_INFO
+  where  item_name     = 'Medical'
+  and    emp_category  = Workertype;
+  exception
+   	when no_data_found then v_medical_f := 0;
+           when others then v_medical_f := 0;
+  end;
+
+  begin
+  select figure into v_convance_f from TB_SETUP_INFO
+  where  item_name     = 'Transport'
+  and    emp_category  = Workertype;
+  exception
+   	when no_data_found then v_convance_f := 0;
+           when others then v_convance_f := 0;
+  end;
+
+  begin
+  select figure into v_fdallow_f from TB_SETUP_INFO
+  where  item_name     = 'FoodAllow'
+  and    emp_category  = Workertype;
+  exception
+   	when no_data_found then v_fdallow_f := 0;
+           when others then v_fdallow_f := 0;
+  end;
+
+  begin
+  select figure into v_status_f
+  from   TB_SETUP_INFO
+  where  item_name     = 'Salary_Cal'
+  and    emp_category  = 'Status';
+  exception
+    	when no_data_found then v_status_f := 0;
+    	       when others then v_status_f := 0;
+  end;
+
+   begin
+   select figure ,sl into v_basic_f, v_sl
+   from   TB_SETUP_INFO
+   where  item_name     = 'Basic'
+   and    emp_category  = workertype;
+   exception
+    	when no_data_found then v_basic_f := 0;
+    	                             v_sl := 0;
+    	       when others then v_basic_f := 0;
+    	                             v_sl := 0;
+   end;
+
+   if v_status_f = 1  and v_sl = 9 then
+   	  v_salary  := round((Gross_Sal - (v_medical_f + v_convance_f + v_fdallow_f))/v_basic_f);
+
+   	  elsif v_status_f = 1  and v_sl = 10 then
+   	  v_salary  := round(Gross_Sal *(v_basic_f/100));
+
+   	  elsif v_status_f = 0  then
+      v_salary  := round((Gross_Sal - (v_medical_f + v_convance_f + v_fdallow_f))/v_basic_f);
+   	  end if;
+
+      return v_salary;
+
+exception
+ 	when others then null;
+END;
+/
