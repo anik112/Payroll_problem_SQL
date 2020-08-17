@@ -1,0 +1,11 @@
+select dbms_metadata.get_ddl('TABLE', 'TB_COMPANY_INFO', 'PAYROLL') as table_ddl from dual;
+  
+
+BEGIN
+   DBMS_OUTPUT.put_line (
+      DBMS_METADATA.get_ddl ('TABLE', 'TB_COMPANY_INFO')||
+	  DBMS_METADATA.GET_DDL('INDEX','IDX_COMPANY_INFO')
+	  );
+END;
+
+SELECT owner, table_name FROM all_tables where owner='PAYROLL';
