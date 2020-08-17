@@ -1,0 +1,39 @@
+select sum(tot.TOTALLEAVE)TOTAL_LEAVE, sum(tot.TOTALATTDENCE)TOTAL_ATTDENCE, 
+       sum(tot.TOTALPRESENT)TOTAL_PRESENT, sum(tot.TOTALABSENT)TOTAL_ABSENT,
+	   per.cardno
+from   TB_PERSONAL_INFO per, TB_MONTH_TOTALDAY tot
+where  per.company   = 'Natural Denims Ltd.'
+and    per.company   = tot.company
+----and    tot.finyear   = 2017
+and    per.cardno    = tot.cardno 
+and    per.cardno in (
+select CARDNO
+from   TB_PERSONAL_INFO 
+where  company       = 'Natural Denims Ltd.'
+and    GROSSSALARY   > 0
+and    to_char(joining_date,'RRRR')         = 2017
+and    rtrim(to_char(joining_date,'Month')) = 'January'
+and    WORKERTYPE like decode(nvl(:p_woker,'all'),'all','%',:p_woker)
+and    ACTIVE       = 0)
+group by per.cardno
+
+
+
+select sum(tot.TOTALLEAVE)TOTAL_LEAVE, sum(tot.TOTALATTDENCE)TOTAL_ATTDENCE, 
+       sum(tot.TOTALPRESENT)TOTAL_PRESENT, sum(tot.TOTALABSENT)TOTAL_ABSENT,
+	   per.cardno, per.empname, per.designation
+from   TB_PERSONAL_INFO per, TB_MONTH_TOTALDAY tot
+where  per.company   = 'Natural Denims Ltd.'
+and    per.company   = tot.company
+---and    tot.finyear   = 2017
+and    per.cardno    = tot.cardno 
+and    per.cardno in (
+select CARDNO
+from   TB_PERSONAL_INFO 
+where  company       = 'Natural Denims Ltd.'
+and    GROSSSALARY   > 0
+and    to_char(joining_date,'RRRR')         = 2017
+and    rtrim(to_char(joining_date,'Month')) = 'February'
+and    WORKERTYPE like decode(nvl(:p_woker,'all'),'all','%',:p_woker)
+and    ACTIVE       = 0)
+group by per.cardno, per.empname, per.designation

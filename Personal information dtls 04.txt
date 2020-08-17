@@ -1,0 +1,40 @@
+----------***************** Employee Report Detail 4
+
+select info.cardno, info.secreteno, info.empname, info.joining_date, info.designation, 
+       info.grosssalary, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE,
+       info.FATHER_NAME, info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY,  
+      info.RELIGION, info.CASH_TYPE,  info.BANK_NAME, other.NID,  other.NOMINEE_CELLNO, other.OWN_CELLNO, info.AC_NO
+from  tb_personal_info info , TB_PERSONAL_INFO_OTHER other
+where info.company   =:p_company
+and   info.company   = other.company
+and   info.cardno      = other.cardno
+and   info.DEPARTMENTNM    like decode(nvl(:p_deptname,'all'),'all','%',:p_deptname)
+and   info.SECTIONNM like decode(nvl(:p_section,'all'),'all','%',:p_section)
+and   DESIGNATION like decode(nvl(:p_desig,'all'),'all','%',:p_desig)
+and   WORKERTYPE like decode(nvl(:p_worker,'all'),'all','%',:p_worker)
+AND   FLOORNO LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
+AND   MACHINENO LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)	
+and   lineno       like decode(nvl(:p_lineno,'all'),'all','%',:p_lineno)
+and   info.cardno       like decode(nvl(:p_cardno,'all'),'all','%',:p_cardno) 
+and   SHIFT like decode(nvl(:p_shift,'all'),'all','%',:p_shift) 
+and   GENDER like decode(nvl(:p_gender,'all'),'all','%',:p_gender)
+AND  CASH_TYPE    LIKE DECODE(NVL(:p_paytype,'all'),'all','%',:p_paytype) 
+AND  BANK_NAME  LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname) 
+and   active like decode(nvl(:p_active,'all'),'all','%',:p_active)
+order by DEPARTMENTNM,SECTIONNM,lineno,cardno asc
+
+
+
+select info.cardno, info.secreteno, info.empname, info.joining_date, info.designation, 
+       info.grosssalary, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE,
+       info.FATHER_NAME, info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY,  
+      info.RELIGION, info.CASH_TYPE,  info.BANK_NAME, info.AC_NO, other.NID,  other.NOMINEE_CELLNO, other.OWN_CELLNO
+from  tb_personal_info info , TB_PERSONAL_INFO_OTHER other
+where info.company   = 'Natural Denims Ltd.(B-2)'
+and   info.company   = other.company
+and   info.cardno      = other.cardno
+and   WORKERTYPE = 'Worker'
+AND  CASH_TYPE    LIKE DECODE(NVL(:p_paytype,'all'),'all','%',:p_paytype) 
+AND  BANK_NAME  LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname) 
+and   active like decode(nvl(:p_active,'all'),'all','%',:p_active)
+order by DEPARTMENTNM,SECTIONNM,lineno,cardno asc

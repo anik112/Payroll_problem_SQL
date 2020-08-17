@@ -1,0 +1,33 @@
+CREATE OR REPLACE FUNCTION round_payment(v_payment number) RETURN number IS
+
+   ----v_payment   number;---:= 2850;
+   v_ck_number number := 0;
+
+   vv_payment  number := 0;
+
+BEGIN
+
+   begin
+   select substr(v_payment,length(v_payment)-2) into v_ck_number
+   from   dual;
+   exception
+   when others then v_ck_number := 0;
+   end;
+
+   if v_ck_number <= 299 then
+      vv_payment := trunc(v_payment,-3);
+
+     elsif v_ck_number between 300 and 799 then
+      vv_payment := trunc(v_payment,-3) +500;
+
+      elsif v_ck_number >= 800 then
+      vv_payment := trunc(v_payment + 1000,-3);
+	  end if;
+
+	  return vv_payment;
+	  ---null;
+
+exception
+ 	when others then vv_payment := 0;
+END;
+/

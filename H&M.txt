@@ -1,0 +1,23 @@
+SELECT per.CARDNO,sal.EMPNAME EMPNAME_SAL, sal.DESIGNATION DESIGNATION_SAL, 
+       sal.SALARY_GRD, sal.GROSSSAL, sal.BASICSAL, sal.TOTALSALARY Net_Wages, sal.ATTBONUS, sal.USELESS Gross_Wages, (mon.OTMIN + mon.OTMINPART + mon.HOLIDAY_OT)Total_OT_Hr, (sal.OTAMOUNT +sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT)Total_OT_Amt,
+	   (sal.NETPAYABLE+sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT)NETPAYABLE,   (sal.NETPAYMENT+sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT+sal.TIFFIN_BILL+sal.WK_HOLI_BILL)NETPAYMENT,
+       sal.TOT_DEDUCTION,  mon.TOTALDAY, mon.TOTALHOLIDAY, mon.TOTALWORKINGDAY, mon.TOTALATTDENCE,mon.TOTALPRESENT,mon.TOTALABSENT, mon.LATEDAY,mon.NT_DAY,
+       mon.TIFFIN_DAY,mon.WK_HOLI_DAY, mon.WEEK_DAY, mon.GOVT_DAY ,
+       per.JOINING_DATE, per.GENDER
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  mon.company  = 'Natural Denims Ltd.'
+and    sal.company  = per.company 
+and    mon.company  = per.company
+AND    mon.finyear  =  2018 
+AND    mon.finmonth =  'October' 
+AND    mon.finyear  =  sal.finyear 
+AND    mon.finmonth =  sal.finmonth
+and    sal.NETPAYMENT > 0
+AND    sal.cardno   =  per.cardno 
+AND    mon.cardno   =  per.cardno 
+AND    per.WORKERTYPE    = 'Worker' 
+------AND    sal.SAL_STATUS    = 'A'
+------AND    sal.SAL_STATUS    = 'J'
+------AND    sal.SAL_STATUS    = 'R'
+AND    sal.PAY_STATUS    = 'Y'
+ORDER BY per.DEPARTMENTNM,per.SECTIONNM,per.lineno,mon.cardno ASC

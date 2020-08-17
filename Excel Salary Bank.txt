@@ -1,0 +1,70 @@
+SELECT per.DEPARTMENTNM,per.SECTIONNM,per.LINENO, sal.EMPNAME EMPNAME_SAL, sal.DESIGNATION DESIGNATION_SAL, sal.GROSSSAL, 
+per.CARDNO,per.AC_NO, per.BANK_NAME,(sal.NETPAYMENT+sal.EXTRA_OTAMT+ sal.HOLIDAY_OT_AMT+ sal.TIFFIN_BILL +sal.WK_HOLI_BILL)NETPAYMENT 
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  mon.company  = 'Natural Denims Ltd.' 
+and    sal.company  = per.company 
+and    mon.company  = per.company
+AND    mon.finyear    =  2018
+AND    mon.finmonth   =  'March' 
+AND    mon.finyear    =  sal.finyear 
+AND    mon.finmonth   =  sal.finmonth
+and     sal.NETPAYMENT > 0
+AND    sal.cardno      =  per.cardno 
+AND    mon.cardno    =  per.cardno 
+and   sal.SAL_STATUS = 'A'
+and    sal.pay_status = 'Y'
+AND    per.BANK_NAME  = 'BRAC' --- Bank Name   
+ORDER BY per.DEPARTMENTNM,per.SECTIONNM,per.lineno,mon.cardno ASC
+
+
+
+
+select distinct BANK_NAME from tb_personal_info
+
+
+-----------
+
+select info.DEPARTMENTNM,info.SECTIONNM, info.LINENO, bamt.CARDNO, info.JOINING_DATE,info.DESIGNATION,info.EMPNAME,
+	   bamt.JOBDAY, bamt.JOBPERIOD, bamt.GROSSSAL, bamt.BASICSAL, bamt.NPAYMENT, bamt.RPAYMENT, 
+	   bamt.BPERCENT, info.AC_NO
+from   TB_BONUS_AMOUNT bamt,TB_PERSONAL_INFO info
+where  info.COMPANY    = 'Natural Denims Ltd.'
+and    info.COMPANY      = bamt.company
+and    bamt.FINYEAR      = 2017
+and    bamt.FINMONTH   = 'June' 
+and    bamt.NPAYMENT > 0
+and    info.cardno     = bamt.cardno 
+AND  info.BANK_NAME   = 'BRAC' --- Bank Name 
+order by info.DEPARTMENTNM,info.SECTIONNM, info.LINENO, bamt.CARDNO asc
+
+
+
+
+SELECT per.CARDNO,sal.EMPNAME EMPNAME_SAL, sal.DESIGNATION DESIGNATION_SAL, 
+       sal.SALARY_GRD, sal.GROSSSAL, sal.BASICSAL, sal.HOUSERENT, sal.MEDICAL MEDISAL, sal.TRANSPORT, sal.FOODALLOW,  
+       sal.ABSENT_DEDUC, sal.HALF_DUTY_DEDUC, sal.TOTALSALARY Net_Wages, sal.ATTBONUS, sal.ARREAR_AMT, sal.ADVANCE_DEDUC,
+	   sal.USELESS Gross_Wages, (mon.OTMIN + mon.OTMINPART + mon.HOLIDAY_OT)Total_OT_Hr, (sal.OTAMOUNT +sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT)Total_OT_Amt,
+	   (sal.NETPAYABLE+sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT)NETPAYABLE,   sal.STAMP, sal.TRADE_SUBSCRIPTION, 
+       (sal.NETPAYMENT+sal.EXTRA_OTAMT + sal.HOLIDAY_OT_AMT+sal.TIFFIN_BILL+sal.WK_HOLI_BILL)NETPAYMENT,
+       sal.FS_BONUS, sal.TOT_DEDUCTION,  sal.NT_BILL, sal.TIFFIN_BILL, sal.WK_HOLI_BILL,
+       mon.TOTALDAY, mon.TOTALHOLIDAY, mon.COMPENSIVE, mon.CASUAL, mon.EARNED, mon.MEDICAL,
+       mon.TOTALLEAVE,mon.TOTALWORKINGDAY, mon.TOTALATTDENCE,mon.TOTALPRESENT,mon.TOTALABSENT, mon.LATEDAY,mon.NT_DAY,
+       mon.TIFFIN_DAY, per.CASH_TYPE, per.BANK_NAME, per.AC_NO, mon.WK_HOLI_DAY, mon.WEEK_DAY, mon.GOVT_DAY ,
+       per.JOINING_DATE, per.GENDER
+FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
+WHERE  mon.company  = 'Natural Denims Ltd.(B-2)'
+and    sal.company  = per.company 
+and    mon.company  = per.company
+AND    mon.finyear  =  2019 
+AND    mon.finmonth =  'December' 
+AND    mon.finyear  =  sal.finyear 
+AND    mon.finmonth =  sal.finmonth
+and    sal.NETPAYMENT > 0
+AND    sal.cardno   =  per.cardno 
+AND    mon.cardno   =  per.cardno 
+AND    per.WORKERTYPE    = 'Worker' 
+AND    sal.SAL_STATUS    = 'A'
+------AND    sal.SAL_STATUS    = 'J'
+------AND    sal.SAL_STATUS    = 'R'
+AND    sal.PAY_STATUS    = 'Y'
+ORDER BY per.DEPARTMENTNM,per.SECTIONNM,per.lineno,mon.cardno ASC
