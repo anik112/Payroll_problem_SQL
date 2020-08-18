@@ -9,3 +9,25 @@ BEGIN
 END;
 
 SELECT owner, table_name FROM all_tables where owner='PAYROLL';
+
+select * from  dba_data_files
+
+select tablespace_name,sum(bytes) from dba_free_space group by tablespace_name
+
+SELECT TABLESPACE_NAME,SUM(BYTES)/1024/1024 FROM DBA_FREE_SPACE GROUP BY TABLESPACE_NAME
+
+select tablespace_name,file_name,user_bytes from dba_data_files b
+
+
+Select a.tablespace_name,a.file_name,a.bytes/1024/1024 TABLESPACE_SIZE_MB,
+Sum(b.bytes)/1024/1024 FREE_IN_MB from dba_free_space b,dba_data_files a
+Where a.tablespace_name = b.tablespace_name
+AND a.file_id = b.file_id
+GROUP by a.tablespace_name, a.file_name,a.bytes/1024/1024
+
+
+SELECT DATA_FILES.TABLESPACE_NAME,DATA_FILES.FILE_NAME, DATA_FILES.BYTES/1024/1024 AS TOTAL_SIZE,
+SUM(FREE_SPACE.BYTES)/1024/1024 AS FREE_SPACE 
+FROM DBA_DATA_FILES DATA_FILES, DBA_FREE_SPACE FREE_SPACE
+WHERE DATA_FILES.FILE_ID=FREE_SPACE.FILE_ID
+GROUP BY DATA_FILES.TABLESPACE_NAME,DATA_FILES.FILE_NAME, DATA_FILES.BYTES
