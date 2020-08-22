@@ -1,0 +1,5 @@
+--- Find the table name where initial extent is not equal 16k
+SELECT * FROM all_tables where owner='PAYROLL' and initial_extent > 16999;
+
+--- Find the index name where initial extent is not equal 16k
+SELECT * FROM all_indexes where owner='PAYROLL' and initial_extent > 16999;
