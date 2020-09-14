@@ -1,0 +1,60 @@
+--- Filter personal info and check total present in selectted day
+company='Natural Denims Ltd.' and lineno = 'Store Loader'
+and cardno not in (select cardno from tb_data_master where finyear = 2020 and pdate='12-Sep-2020')
+and active=0
+
+--- Filter data master and check total present in selectted day
+finyear = 2020
+and pdate='12-Sep-2020'
+and cardno in ( select cardno from tb_personal_info
+where company='Natural Denims Ltd.' and lineno = 'Store Loader')
+
+
+--- Find the all worker list who dosen't have same line name in data master table.
+declare
+line varchar(200 byte):= 'Store Loader';
+finyear number:=2020;
+cardno tb_personal_info.CARDNO%type;
+cursor empList is select cardno from tb_personal_info 
+where company='Natural Denims Ltd.' and lineno = 'Store Loader'
+and active=0;
+i int:=0;
+findCardno number:=0;
+declare
+line varchar(200 byte):= 'Store Loader';
+finyear number:=2020;
+cardno tb_personal_info.CARDNO%type;
+cursor empList is select cardno from tb_personal_info 
+where company='Natural Denims Ltd.' and lineno = 'Store Loader'
+and active=0;
+i int:=0;
+findCardno number:=0;
+begin
+open empList;
+loop
+fetch empList into cardno;
+exit when empList%notfound;
+select count(cardno) into findCardno from tb_data_master mst
+where mst.lineno != 'Store Loader' and mst.CARDNO=cardno;
+dbms_output.put_line('SL: '||i||' Card: '||cardno);
+dbms_output.put_line(' 	 Count Card: '||findCardno);
+i:=i+1;
+findCardno:=0;
+end loop;
+close empList;
+end;
+
+
+--- Find the all worker list who dosen't have same line name in data master table.
+select cardno, count(cardno) from tb_data_master_temp
+where lineno != 'Store Loader' 
+and cardno in (select cardno from tb_personal_info where company='Natural Denims Ltd.' and lineno = 'Store Loader' and active=0)
+group by cardno
+
+
+--- Update line no who dosen't have same line name in data master table.
+update tb_data_master_temp
+set lineno='Store Loader'
+where lineno != 'Store Loader' 
+and cardno in (select cardno from tb_personal_info where company='Natural Denims Ltd.' and lineno = 'Store Loader' and active=0)
+
