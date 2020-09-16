@@ -1,4 +1,52 @@
 
+----------------- ********* update OT without rendom value
+
+
+--- check
+select '17'||substr(mst.OUTTIME,3), '9'||substr(mst.DURATION, instr(mst.DURATION,':')),instr(mst.DURATION,':')
+from tb_data_master mst
+where finyear=2020
+and finmonth='August'
+
+
+-- update
+UPDATE TB_DATA_MASTER_TEMP temp
+SET (OUTTIME, OUTTIME_V, DURATION, DURATION_V, OTMIN, OTPART, OTMIN_V)
+=(select '17'||substr(mst.OUTTIME,3),
+		'17'||substr(mst.OUTTIME_V,3),
+		'9'||substr(mst.DURATION, instr(mst.DURATION,':')),
+		'9'||substr(mst.DURATION_V, instr(mst.DURATION_V,':')),
+		0,
+		0,
+		0
+ from tb_data_master mst
+	 WHERE mst.finyear=temp.finyear
+	 and mst.finmonth=temp.finmonth
+	 and mst.pdate=temp.pdate
+	 and mst.CARDNO=temp.cardno)
+WHERE finyear=2020
+and finmonth='August'
+and LENGTH(OUTTIME)<11
+--and pdate='2-August-2020'
+
+
+--- check
+select cardno from tb_data_master_temp
+where LENGTH(OUTTIME)<11
+and finyear=2020
+and finmonth='August'
+--and pdate='30-August-2020'
+
+
+
+
+
+
+
+
+
+
+
 --- ********** update in - out time depend on duration
 UPDATE 
 TB_DATA_MASTER
