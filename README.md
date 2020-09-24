@@ -5,7 +5,7 @@ All problem SQL of PAYROLL
 >> Vistasoft IT Bangladesh Ltd.
 
 ##### Insert data dynamically one table to another
-````javascript
+````sql
 ---- static
 INSERT INTO table (col1, col2, col3) VALUES (val1, val2, val);
 
