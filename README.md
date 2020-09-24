@@ -12,6 +12,6 @@ INSERT INTO table (col1, col2, col3) VALUES (val1, val2, val);
 --- dynamic
 INSERT INTO table (col1, col2, col3)
 SELECT col1, col2, col3 FROM table2
-WHERE condition //[if any have]
+WHERE condition ---[if any have]
 
 ``````````
