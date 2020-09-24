@@ -78,3 +78,13 @@ WHERE  FINYEAR=2019
 AND	   FINMONTH='March'
 AND	   CARDNO='018979'
 --AND PDATE = TO_DATE('03/07/2019 00:00:00', 'MM/DD/YYYY HH24:MI:SS');
+
+
+
+----------- checks
+
+
+UPDATE TB_DATA_MASTER_TEMP
+SET OUTTIME=substr(outtime,1,3)||TRUNC(DBMS_RANDOM.VALUE(10, 20))||substr(outtime,6)
+where finyear=2020 and finmonth='June'
+and substr(outtime,4,2)> 25

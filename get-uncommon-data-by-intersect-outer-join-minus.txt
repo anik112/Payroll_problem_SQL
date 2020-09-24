@@ -1,0 +1,19 @@
+--- use minus to get uncommon data from tb_personal_info
+select * from tb_personal_info where active=1
+minus
+select * from tb_personal_info_temp where active=1
+
+-- use outer join to get uncommon data from tb_personal_info
+select * from
+(select * from tb_personal_info where active=1) a,
+(select * from tb_personal_info_temp where active=1) b
+where a.cardno = b.cardno(+)
+and b.cardno is null
+
+--- intersect to get uncommon data from tb_personal_info
+(select * from tb_personal_info where active=1)
+minus
+((select * from tb_personal_info where active=1)
+intersect
+(select * from tb_personal_info_temp where active=1))
+

@@ -24,6 +24,7 @@ and   active like decode(nvl(:p_active,'all'),'all','%',:p_active)
 order by DEPARTMENTNM,SECTIONNM,lineno,cardno asc
 
 
+----------------------
 
 select info.cardno, info.secreteno, info.empname, info.joining_date, info.designation, 
        info.grosssalary, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE,
