@@ -1,0 +1,14 @@
+select substr(mst.DURATION_V,2),substr(DURATION_V,1, instr(DURATION_V,':')-1), mst.DURATION_V from tb_data_master mst 
+where finyear=2020 and finmonth='September'
+and substr(DURATION_V,1, instr(DURATION_V,':')-1)<0
+
+
+update tb_data_master
+set DURATION_V=substr(DURATION_V,2)
+where finyear=2020 and finmonth='September'
+and substr(DURATION_V,1, instr(DURATION_V,':')-1)<0
+
+update tb_data_master_temp
+set DURATION_V=substr(DURATION_V,2)
+where finyear=2020 and finmonth='September'
+and substr(DURATION_V,1, instr(DURATION_V,':')-1)<0
