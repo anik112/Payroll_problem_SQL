@@ -20,3 +20,18 @@ set (pr1.cash_type,pr1.ac_no,pr1.bank_name) =
 where pr1.sectionnm='Printing Staff' 
 and pr1.bank_name='CASH'
 and  pr1.company='Adury Fashion & Print Ltd..'
+
+
+---- -insert
+
+insert into payroll.tb_data_master pst
+(pst.CARDNO, pst.SECRETENO, pst.PDATE, pst.INTIME, pst.OUTTIME, pst.OTSTART, pst.DURATION, pst.LATEHR, pst.EARLYHR, pst.OTMIN, 
+pst.OTPART, pst.LATESTATUS, pst.EARLYSTATUS, pst.COMPANY, pst.YES_NOT, pst.ISLN, pst.SECTIONNM, pst.SHIFT, pst.LINENO, pst.FINYEAR, pst.FINMONTH,
+pst.LATEDED, pst.EARLYDED, pst.OTHR, pst.OTHRPART, pst.PSATUS, pst.STATUSDAY, pst.TF, pst.OUTTIME_V, pst.OTMIN_V, pst.NT_V, pst.TF_V, pst.DURATION_V)
+
+(select CARDNO, SECRETENO, PDATE, INTIME, OUTTIME, OTSTART, DURATION, LATEHR, EARLYHR, OTMIN, 
+OTPART, LATESTATUS, EARLYSTATUS, COMPANY, YES_NOT, ISLN, SECTIONNM, SHIFT, LINENO, FINYEAR, FINMONTH, 
+LATEDED, EARLYDED, OTHR, OTHRPART, PSATUS, STATUSDAY, TF, OUTTIME_V, OTMIN_V, NT_V, TF_V, DURATION_V  
+from test.tb_data_master
+where pdate between '01-Oct-2019' and '29-Feb-2020'
+and cardno='50000249')
