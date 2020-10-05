@@ -19,9 +19,15 @@ from tb_data_master
 where company=2
 and	  finyear=2020
 and	  finmonth='May'
-and	  pdate='2-May-2020' 
 and   otmin>0
 
+
+select sum(otmin)
+from tb_data_master 
+where company=2
+and	  finyear=2020
+and	  finmonth='May'
+and   otmin>0
 
 
 select cardno from tb_personal_info where company='9 Star Apparels Industries Ltd.' and active=0 and otorg='Y' and otcom='Y'
@@ -93,7 +99,24 @@ where company=2
 and	 finyear=2020
 and	 finmonth='September'
 and	 otmin>0) tbl
-where tbl.pdate between '5-Sep-2020' and '23-Sep-2020'
+where tbl.pdate between '2020-05-06' and '2020-05-06'
 group by tbl.cardno
 ) tbl2
 where tbl2.cunt_date=17
+
+
+
+
+SELECT CARDNO,SECRETENO,EMPID FROM TB_PERSONAL_INFO WHERE OTORG='Y' AND OTCOM='Y' AND ACTIVE=0
+
+
+
+ alter system set open_cursors = 3000 scope=both;
+ 
+ 
+select * from tb_data_master where finmonth='February' and finyear=2020
+
+
+
+insert into tb_data_master
+select * from master_new
