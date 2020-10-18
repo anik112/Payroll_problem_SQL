@@ -1,0 +1,55 @@
+declare
+v_macno tb_data_out.MACNO%type;
+v_secno tb_data_out.SECRETENO%type;
+v_date	varchar(250 byte);
+v_time	tb_data_out.PTIME%type;
+v_status tb_data_out.STATUS%type;
+
+cursor cur_data is (
+	   select MACNO,SECRETENO,to_char(pdate,'ddMMyyyy') ,PTIME, STATUS
+	   from tb_data_out
+	   where pdate between '5-Apr-2020' and '6-Apr-2020'
+);
+begin
+	 open cur_data;
+	 loop
+	 fetch cur_data into v_macno, v_secno, v_date, v_time, v_status;
+	 exit when cur_data%notfound;
+	 dbms_output.put_line(v_macno||':'||v_secno||':'||v_date||':'||v_time||':'||v_status);
+	 end loop;
+	 close cur_data;
+end;
+
+
+
+
+declare
+v_macno tb_data_out.MACNO%type;
+v_secno tb_data_out.SECRETENO%type;
+v_date	varchar(250 byte);
+v_time	tb_data_out.PTIME%type;
+v_status tb_data_out.STATUS%type;
+
+cursor cur_data is (
+	   select MACNO,SECRETENO,to_char(pdate,'ddMMyyyy') ,PTIME, STATUS
+	   from tb_data_out
+	   where pdate between '5-Apr-2020' and '6-Apr-2020'
+);
+begin
+	 open cur_data;
+	 loop
+	 fetch cur_data into v_macno, v_secno, v_date, v_time, v_status;
+	 exit when cur_data%notfound;
+	 dbms_output.put_line(v_macno||':'||v_secno||':'||v_date||':'||v_time||':'||v_status);
+	 end loop;
+	 close cur_data;
+end;
+
+
+
+
+
+
+select INTIME, OUTTIME, SECRETENO,to_char(pdate,'ddMMyyyy')
+	   from tb_data_master_temp
+	   where pdate between '5-Apr-2020' and '6-Apr-2020'
