@@ -1,0 +1,10 @@
+select mst.CARDNO cardno, mst.INTIME Org_in_time, mst.OUTTIME Org_out_time, (mst.OTMIN+mst.OTPART) Org_ot_min,mst_tmp.INTIME Com_in_time, mst_tmp.OUTTIME Com_out_time, mst_tmp.OTMIN Com_ot_min
+from tb_data_master mst, tb_data_master_temp mst_tmp
+where mst.COMPANY=mst_tmp.COMPANY
+and	  mst.FINYEAR=mst_tmp.FINYEAR
+and	  mst.FINYEAR=2020
+and	  mst.FINMONTH=mst_tmp.FINMONTH
+and	  mst.FINMONTH='September'
+and	  mst.PDATE=mst_tmp.PDATE
+and	  mst.PDATE='01-Sep-2020'
+and	  mst.CARDNO=mst_tmp.CARDNO
