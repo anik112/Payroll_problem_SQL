@@ -1,0 +1,28 @@
+select info.DEPARTMENTNM, info.SECTIONNM,  info.LINENO, info.CARDNO, info.SECRETENO, 
+info.EMPNAME, info.DESIGNATION
+from TB_PERSONAL_INFO info
+where info.COMPANY like decode(nvl(:p_company,'whole'),'whole','%',:p_company)
+and	  info.DEPARTMENTNM like decode(nvl(:p_dept,'whole'),'whole','%',:p_dept)
+and	  info.SECTIONNM like decode(nvl(:p_section,'whole'),'whole','%',:p_section)
+and	  info.DESIGNATION like decode(nvl(:p_des,'whole'),'whole','%',:p_des)
+and	  info.WORKERTYPE like decode(nvl(:p_worker_type,'whole'),'whole','%',:p_worker_type)
+and	  info.LINENO like decode(nvl(:p_line_no,'whole'),'whole','%',:p_line_no)
+and	  info.SHIFT like decode(nvl(:p_shift,'whole'),'whole','%',:p_shift)
+and	  info.GENDER like decode(nvl(:p_gender,'whole'),'whole','%',:p_gender)
+and	  info.CARDNO like decode(nvl(:p_cardno,'whole'),'whole','%',:p_cardno)
+and	  info.ACTIVE like decode(nvl(:p_active,'whole'),'whole','%',:p_active)
+group by  info.DEPARTMENTNM, info.SECTIONNM, info.LINENO, info.DESIGNATION, 
+info.CARDNO, info.SECRETENO, info.EMPNAME
+order by cardno asc
+
+
+
+
+/**
+
+select decode(info.ACTIVE,0,'Active') from tb_personal_info info where active=0
+
+Decode function work like IF-THEN-ELSE ; decode(value1, mached value, replace ) ;  
+NVL function work like if value is null or 0 it's return defult value;  nvl(check value, replace )   ;
+
+**/

@@ -1,0 +1,19 @@
+SELECT INFO.CARDNO, INFO.EMPNAME, INFO.FATHER_NAME, INFO.DESIGNATION,
+INFO.BIRTH_DATE, INFO.JOINING_DATE, INFO.GROSSSALARY, DESINFO.SALGRADE, 
+INFO.GENDER, INFO.BLOODGROUP, PRINFO.EFFECTIVEDATE LAST_INCR_DATE, 
+PRINFO.PROSALARY LAST_INCR_AMT
+FROM TB_PERSONAL_INFO INFO, TB_DESIGNATION_INFO DESINFO, TB_PROMOTION_INFO PRINFO
+WHERE INFO.COMPANY like decode(nvl(:p_company,'all'),'all','%',:p_company)
+AND	  PRINFO.COMPANY=INFO.COMPANY
+AND	  INFO.ACTIVE=0
+AND	  INFO.DEPARTMENTNM like decode(nvl(:p_dept,'all'),'all','%',:p_dept)
+AND	  INFO.SECTIONNM like decode(nvl(:p_section,'all'),'all','%',:p_section)
+AND	  INFO.DESIGNATION like decode(nvl(:p_des,'all'),'all','%',:p_des)
+AND	  DESINFO.DESIGNATION=INFO.DESIGNATION
+AND	  INFO.WORKERTYPE like decode(nvl(:p_worker_type,'all'),'all','%',:p_worker_type)
+AND	  INFO.LINENO like decode(nvl(:p_line_no,'all'),'all','%',:p_line_no)
+AND	  INFO.SHIFT like decode(nvl(:p_shift,'all'),'all','%',:p_shift)
+AND	  INFO.CARDNO like decode(nvl(:p_cardno,'all'),'all','%',:p_cardno) 
+AND	  PRINFO.CARDNO=INFO.CARDNO
+AND	  PRINFO.EFFECTIVEDATE=(SELECT MAX(EFFECTIVEDATE) FROM TB_PROMOTION_INFO WHERE CARDNO=INFO.CARDNO)
+ORDER BY INFO.CARDNO ASC

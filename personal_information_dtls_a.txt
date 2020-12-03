@@ -1,0 +1,18 @@
+select info.DEPARTMENTNM, info.SECTIONNM, info.CARDNO,
+info.SECRETENO, info.EMPNAME, info.DESIGNATION, info.JOINING_DATE, 
+info.GROSSSALARY, round(((info.GROSSSALARY-1850)/1.5)) basicsalary
+from TB_PERSONAL_INFO info
+where info.COMPANY like decode(nvl(:p_company,'all'),'all','%',:p_company)
+and	  info.JOINING_DATE like decode(nvl(:join_date,'all'),'all','%',:join_date)
+and	  info.DEPARTMENTNM like decode(nvl(:p_dept,'all'),'all','%',:p_dept)
+and	  info.SECTIONNM like decode(nvl(:p_section,'all'),'all','%',:p_section)
+and	  info.DESIGNATION like decode(nvl(:p_des,'all'),'all','%',:p_des)
+and	  info.WORKERTYPE like decode(nvl(:p_worker_type,'all'),'all','%',:p_worker_type)
+and	  info.LINENO like decode(nvl(:p_line_no,'all'),'all','%',:p_line_no)
+and	  info.SHIFT like decode(nvl(:p_shift,'all'),'all','%',:p_shift)
+and	  info.GENDER like decode(nvl(:p_gender,'all'),'all','%',:p_gender)
+and	  info.CARDNO like decode(nvl(:p_cardno,'all'),'all','%',:p_cardno) 
+and	  info.ACTIVE like decode(nvl(:p_active,'all'),'all','%',:p_active) 
+group by  info.DEPARTMENTNM, info.SECTIONNM,  info.CARDNO,info.SECRETENO, 
+info.EMPNAME, info.DESIGNATION, info.JOINING_DATE, info.GROSSSALARY
+order by cardno asc
