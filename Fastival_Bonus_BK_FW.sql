@@ -63,7 +63,35 @@ begin
   return v_status;
   
 end;
+
+
+--- for MFT AC header formula  
+function CF_AC_StatusFormula return Char is
+
+  v_status  varchar2(25);
   
+begin
+  
+  if :p_mfs_type is not null then
+  
+		  if upper(:p_mfs_type) = upper('bKash') then
+  	  v_status := 'bKash No';
+		
+		  elsif upper(:p_mfs_type) = upper('Rocket') then
+		  v_status := 'Rocket No';  
+		
+		  elsif upper(:p_mfs_type) = upper('Nagad') then
+		  v_status := 'Nagad No'; 
+		  end if;
+		  
+  
+  else
+  v_status := 'A/C No';
+  end if;
+  
+  return v_status;
+  
+end;
 
   
  select distinct bonus_name 
