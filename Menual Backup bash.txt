@@ -1,0 +1,1 @@
+'exp '||'payroll'||'/'||'payroll'||'@'||'payroll'||' owner=PAYROLL file=D:\DataBackup\'||to_char(sysdate,'ddmmyyyyhhmiss')||'.dmp grants=Y rows=Y '
