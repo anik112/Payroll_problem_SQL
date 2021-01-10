@@ -66,3 +66,8 @@ and    finyear  = 2020
 and    finmonth = 'November'
 and    '30-Nov-2020' between start_date and end_date
 and    cardno   = '0014'
+
+
+elsif (:d1='CL' or :d1='ML' or :d1='EL' or :d1='SP') then
+  	v_leave:=v_leave+1;
+  end if;
