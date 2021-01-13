@@ -219,8 +219,8 @@ EARLYSTATUS_V, OTMIN_V, NT_V, TF_V, DURATION_V, IFTAR from tb_data_master
 where finyear=2020
 and	  finmonth='December'
 and	  cardno in (select cardno from tb_personal_info
-where company='Apparel Plus Ltd.'
-and	  active=0) 
+				where company='Apparel Plus Ltd.'
+				and	  active=0) 
 
 
 
@@ -273,3 +273,67 @@ where a.cardno=b.cardno
 
 
 
+update tb_personal_info info
+set info.GROSSSALARY=(select sal.GROSSSAL from tb_month_salary sal
+where sal.finyear=2020
+	and	  sal.finmonth='October'
+	and	  sal.COMPANY='Apparel Plus Limited.'
+	and	  sal.cardno=info.cardno)
+where company='Apparel Plus Ltd.'
+and	  cardno in (select cardno from tb_personal_info
+	  		 	where company='Apparel Plus Ltd.')
+
+				
+				insert into tb_data_master_temp
+(CARDNO, SECRETENO, PDATE, INTIME, OUTTIME, OTSTART, 
+DURATION, LATEHR, EARLYHR, OTMIN, OTPART, LATESTATUS, 
+EARLYSTATUS, COMPANY, YES_NOT, ISLN, SECTIONNM, SHIFT, 
+LINENO, FINYEAR, FINMONTH, LATEDED, EARLYDED, OTHR, 
+OTHRPART, PSATUS, STATUSDAY, TF, OUTTIME_V, EARLYHR_V, 
+EARLYSTATUS_V, OTMIN_V, NT_V, TF_V, DURATION_V, IFTAR)                                
+select CARDNO, SECRETENO, PDATE, INTIME, OUTTIME, OTSTART, 
+DURATION, LATEHR, EARLYHR, OTMIN, OTPART, LATESTATUS, 
+EARLYSTATUS, 5, YES_NOT, ISLN, SECTIONNM, SHIFT, 
+LINENO, FINYEAR, FINMONTH, LATEDED, EARLYDED, OTHR, 
+OTHRPART, PSATUS, STATUSDAY, TF, OUTTIME_V, EARLYHR_V, 
+EARLYSTATUS_V, OTMIN_V, NT_V, TF_V, DURATION_V, IFTAR from tb_data_master_temp
+where finyear=2021
+and	  finmonth='January'
+and	  cardno in (select cardno from tb_personal_info
+				where company='Apparel Plus Ltd.'
+				and	  active=0) 
+				
+
+
+insert into TB_DUTY_SCHEDULE_SETUP (DUTYID, COMPANY, SECTION_WORKER, INSTARTTIME, LATESTARTTIME, LASTINTIME, EXITTIME, OTAPPLICABLE, 
+SHIFT, WHOLEDAY, OTCOM, PROCESSBY, PROCESSDATE, RAMADAN_STATUS, RAMADAN_BK_TIME, RAMADAN_OT_DED, NTTIME, TFTIME, NT_STATUS, NT_OT_DED)
+(select (34+DUTYID), 'Apparel Plus Ltd.', SECTION_WORKER, INSTARTTIME, LATESTARTTIME, LASTINTIME, EXITTIME, OTAPPLICABLE, 
+SHIFT, WHOLEDAY, OTCOM, PROCESSBY, PROCESSDATE, RAMADAN_STATUS, RAMADAN_BK_TIME, RAMADAN_OT_DED, NTTIME, TFTIME, NT_STATUS, NT_OT_DED
+from TB_DUTY_SCHEDULE_SETUP where company='Apparel Plus Limited.')
+
+
+
+
+
+insert into TB_LEAVE_DETAILINFO (SLNO, CARDNO, FINYEAR, FINMONTH, LEAVE_TYPE, START_DATE, END_DATE, 
+LEAVEDAY, SALDAY, LEAVE_STATUS, PROCESSDATE, UPDATEED, UPDATEBY, COMPANY, REASON, REMARKS)
+(select (11794+SLNO), CARDNO, FINYEAR, FINMONTH, LEAVE_TYPE, START_DATE, 
+END_DATE, LEAVEDAY, SALDAY, LEAVE_STATUS, PROCESSDATE, UPDATEED, 
+UPDATEBY, 'Apparel Plus Ltd.', REASON, REMARKS from TB_LEAVE_DETAILINFO
+where finyear=2020
+and	  finmonth = 'October'
+and	  cardno in (
+select cardno from tb_personal_info
+where active=0
+and company='Apparel Plus Ltd.'))
+
+
+insert into TB_MATERNITY_LEAVE_DETAIL (SLNO, CARDNO, FINYEAR, FINMONTH, GROSSSAL, PAYAMOUNT, COMPANY, PTNO, WORK_DAY)
+select (148+SLNO), CARDNO, FINYEAR, FINMONTH, GROSSSAL, PAYAMOUNT,'Apparel Plus Ltd.', PTNO, WORK_DAY 
+from TB_MATERNITY_LEAVE_DETAIL
+where finyear=2020
+and finmonth='December'
+and cardno in (
+select cardno from tb_personal_info
+where active=0
+and company='Apparel Plus Ltd.')
