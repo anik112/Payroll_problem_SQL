@@ -34,7 +34,6 @@ and	  latestatus='Late'
 )
 
 --- select data 
-
 select mst.cardno, mst.pdate, tmp.intime com_initme, mst.intime org_intime, 
 tmp.latehr com_latehr, mst.latehr org_latehr, 
 tmp.latestatus comp_satus, mst.latestatus org_status, 
