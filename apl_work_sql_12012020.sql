@@ -283,6 +283,13 @@ where company='Apparel Plus Ltd.'
 and	  cardno in (select cardno from tb_personal_info
 	  		 	where company='Apparel Plus Ltd.')
 
+				select info.* from tb_personal_info info,tb_month_salary sal
+where sal.COMPANY='Apparel Plus Limited.'
+and	  sal.finyear=2020
+and	  sal.finmonth='November'
+and	  info.COMPANY='Apparel Plus Ltd.'
+and	  sal.GROSSSAL=info.GROSSSALARY
+and	  sal.cardno=info.cardno
 				
 				insert into tb_data_master_temp
 (CARDNO, SECRETENO, PDATE, INTIME, OUTTIME, OTSTART, 

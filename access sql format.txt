@@ -2,3 +2,13 @@ select customers.name,orders.id
 from customers 
 join orders on customers.id=orders.id_customers
 where orders.orders_date>='2016-01-01' and orders.orders_date<='2016-06-30'
+
+
+SELECT * from userinfo
+where name in (select SECRETENO from TEST_INFO);
+
+SELECT userinfo.name
+FROM userinfo INNER JOIN test_info ON userinfo.name = test_info.secreteno;\
+
+update userinfo INNER JOIN test_info ON userinfo.name = test_info.secreteno
+set userinfo.name = test_info.cardno;
