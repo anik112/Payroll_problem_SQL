@@ -17,3 +17,15 @@ AND	  INFO.CARDNO like decode(nvl(:p_cardno,'all'),'all','%',:p_cardno)
 AND	  PRINFO.CARDNO=INFO.CARDNO
 AND	  PRINFO.EFFECTIVEDATE=(SELECT MAX(EFFECTIVEDATE) FROM TB_PROMOTION_INFO WHERE CARDNO=INFO.CARDNO)
 ORDER BY INFO.CARDNO ASC
+
+----------------------
+
+
+select info.CARDNO, info.EMPNAME,info.DESIGNATION, 
+floor((sysdate-info.BIRTH_DATE)/365) age,info.GENDER, 
+other.NID, info.BIRTH_DATE, info.BLOODGROUP, info.JOINING_DATE
+from tb_personal_info info, tb_personal_info_other other
+where other.COMPANY=info.COMPANY
+and	  info.CARDNO=other.CARDNO
+and	  info.ACTIVE=0
+
