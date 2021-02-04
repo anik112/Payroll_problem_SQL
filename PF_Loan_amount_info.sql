@@ -2,10 +2,10 @@ select info.CARDNO, info.JOINING_DATE ,info.ENMNAME_BANGLA, info.DESIGNATION_BAN
 info.DEPT_BANGLA, info.SEC_BANGLA,INFO.COMPANY, info.FATHER_NAME_BAN, loan.LOAN_AMT
 from  TB_PF_LOAN_AMT loan, tb_personal_info info
 where loan.company	 = :p_company
+and   info.company	   = loan.company
 and	  loan.FINYEAR	   = :p_year
 and	  loan.LOANDATE	   = :p_date
 and	  loan.PAID_STATUS ='Pending'
-and   info.company	   = loan.company
 and	  info.CARDNO	   = loan.CARDNO
 AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
@@ -47,3 +47,8 @@ and   info.GENDER		   LIKE DECODE(nvl(:p_gender,'all'),'all','%',:p_gender)
 and   info.active		   LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 AND   info.cardno		   LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:p_cardno)
 order by loan.FINYEAR, info.DEPARTMENTNM, info.SECTIONNM, info.LINENO, info.cardno asc
+
+----------------------
+
+
+
