@@ -5,7 +5,7 @@ where loan.company	 = :p_company
 and   info.company	   = loan.company
 and	  loan.FINYEAR	   = :p_year
 and	  loan.LOANDATE	   = :p_date
-and	  loan.PAID_STATUS ='Pending'
+and	  loan.REASON_STATUS ='Pending'
 and	  info.CARDNO	   = loan.CARDNO
 AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
@@ -34,7 +34,7 @@ where loan.company	   = :p_company
 and   info.company	   = loan.company
 and	  info.CARDNO	   = loan.CARDNO
 and	  loan.FINYEAR 	   	   LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
-and	  loan.PAID_STATUS	   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
+and	  loan.REASON_STATUS   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
 AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 AND   info.DESIGNATION	   LIKE DECODE(NVL(:p_desig,'all'),'all','%',:p_desig)

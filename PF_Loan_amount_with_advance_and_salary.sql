@@ -128,7 +128,7 @@ info.EMPNAME, info.DESIGNATION, loan.FINYEAR, loan.LOANDATE, loan.LOAN_AMT
 	and   info.company	   = loan.company
 	and	  info.CARDNO	   = loan.CARDNO
 	and	  loan.FINYEAR 	   	   LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
-	and	  loan.PAID_STATUS	   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
+	and	  loan.REASON_STATUS   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
 	AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 	AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 	AND   info.DESIGNATION	   LIKE DECODE(NVL(:p_desig,'all'),'all','%',:p_desig)
@@ -153,7 +153,7 @@ from
 	and	  adv.CARDNO   = info.CARDNO
 	and	  loan.CARDNO  = info.CARDNO
 	and	  loan.FINYEAR         LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
-	and	  loan.PAID_STATUS	   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
+	and	  loan.REASON_STATUS   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
 	AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 	AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 	AND   info.DESIGNATION	   LIKE DECODE(NVL(:p_desig,'all'),'all','%',:p_desig)
@@ -174,7 +174,7 @@ from
 	and	  sal.CARDNO   = info.CARDNO
 	and	  loan.CARDNO  = info.CARDNO
 	and	  loan.FINYEAR         LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
-	and	  loan.PAID_STATUS     LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
+	and	  loan.REASON_STATUS   LIKE DECODE(NVL(:p_status,'all'),'all','%',:p_status)
 	AND   info.DEPARTMENTNM    LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 	AND   info.SECTIONNM	   LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 	AND   info.DESIGNATION	   LIKE DECODE(NVL(:p_desig,'all'),'all','%',:p_desig)
@@ -186,11 +186,11 @@ from
 	and   info.GENDER		   LIKE DECODE(nvl(:p_gender,'all'),'all','%',:p_gender)
 	and   info.active		   LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 	AND   info.cardno		   LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:p_cardno)) f
-	where e.cardno   = f.cardno(+)
-	and	  e.DEDYEAR	 = f.FINYEAR(+)
+	where e.DEDYEAR	 = f.FINYEAR(+)
 	and	  e.DEDMONTH = f.FINMONTH(+)
+	and	  e.cardno   = f.cardno(+)
 ) b
-where a.FINYEAR=b.LOANYEAR
-and	  a.cardno = b.cardno(+)
+where  a.FINYEAR = b.LOANYEAR
+and	   a.cardno  = b.cardno(+)
 order by a.DEPARTMENTNM, a.SECTIONNM, a.LINENO, a.CARDNO, a.FINYEAR, 
 a.LOANDATE,b.DEDYEAR asc
