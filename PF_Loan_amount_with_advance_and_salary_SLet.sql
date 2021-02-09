@@ -151,7 +151,7 @@ select info.DEPARTMENTNM, info.SECTIONNM, info.LINENO, info.CARDNO,
           adv.DEDYEAR, adv.DEDMONTH, adv.DEDAMOUNT, mon.SLNO
 from  TB_PF_LOAN_AMT loan, TB_ADVANCEORLOAN_INFO adv, 
          TB_PERSONAL_INFO info, TB_MONTH mon, TB_IDCARD_MULTIPLE mul
-where info.company                 = :p_company
+where info.company  = :p_company
 and    loan.company	= info.company
 and    adv.COMPANY 	= info.COMPANY
 and    info.COMPANY = mul.COMPANY
