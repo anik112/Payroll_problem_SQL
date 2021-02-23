@@ -1,13 +1,12 @@
-SELECT ROW_NUMBER() OVER (ORDER BY info.cardno ASC) row_num, info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary, pic.EMPPICTURE,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
-FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other, TB_PERSONAL_INFO_PICTURE pic 
-WHERE info.company  =:p_company
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
+FROM  TB_PERSONAL_INFO info , TB_PERSONAL_INFO_OTHER other
+WHERE info.company  = :p_company
 AND   other.company = info.company
-AND   pic.company   = info.company
 AND   other.cardno  = info.cardno
-AND   pic.cardno    = info.cardno
 AND   info.DEPARTMENTNM LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
 AND   info.SECTIONNM    LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 AND   info.DESIGNATION  LIKE DECODE(NVL(:p_desig,'all'),'all','%',:p_desig)
@@ -22,21 +21,18 @@ AND   info.BANK_NAME    LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE     LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type) 
 AND   info.cardno       LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:p_cardno) 
 AND   info.active       LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
-ORDER BY info.cardno ASC
+ORDER BY info.DEPARTMENTNM, info.SECTIONNM, info.LINENO, info.CARDNO ASC
+
+
+------------- selected  ---------------
 
 
 
-
----------------------------- Selected   -------
-
-
-SELECT a.cardno, a.empname, a.designation, a.FATHER_NAME, a.HOUSBANDNAME, a.BIRTH_DATE, a.joining_date,  a.SALARY_GRADE, a.GENDER,
-       a.BLOODGROUP, a.NID, a.OWN_CELLNO, a.SECTIONNM, a.lineno, a.grosssalary, a.present_address, a.permanent_address, pic.EMPPICTURE
-FROM
-(SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-        info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-        (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-        (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  = :p_company
 AND   other.company = info.company
@@ -48,10 +44,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  = :p_company
 AND   other.company = info.company
@@ -63,10 +60,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  = :p_company
 AND   other.company = info.company
@@ -78,10 +76,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  = :p_company
 AND   other.company = info.company
@@ -93,10 +92,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  = :p_company
 AND   other.company = info.company
@@ -108,10 +108,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  =:p_company
 AND   other.company = info.company
@@ -123,10 +124,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  =:p_company
 AND   other.company = info.company
@@ -138,10 +140,11 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other
 WHERE info.company  =:p_company
 AND   other.company = info.company
@@ -153,17 +156,16 @@ AND   info.BANK_NAME LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   info.MFT_TYPE  LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type)
 AND   info.active    LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 UNION
-SELECT info.cardno, info.empname, info.designation, info.FATHER_NAME, info.HOUSBANDNAME, info.BIRTH_DATE, info.joining_date,  info.SALARY_GRADE, info.GENDER,
-       info.BLOODGROUP, other.NID, other.OWN_CELLNO, info.SECTIONNM, info.lineno, (info.grosssalary + info.GROSS_BK)grosssalary,
-       (info.PRESENT_DIST||', '||info.PRESENT_PS||', '||info.PRESENT_PO||', '||info.PRESENT_ADDRESS) present_address, 
-       (info.PERMANENT_DIST||', '||info.PERMANENT_PS||', '||info.PERMANENT_PO||', '||info.PERMANENTADDRESS) permanent_address
+SELECT info.cardno, info.empname, info.FATHER_NAME, info.designation,  info.joining_date, 
+       (info.grosssalary + info.GROSS_BK)GROSSSALARY, info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.WORKERTYPE, 
+       info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP, info.SALARY_GRADE,  info.WDAY, info.RELIGION, info.CASH_TYPE,  
+       info.BANK_NAME, other.NID, info.NT_STATUS, info.TF_STATUS, info.IFTAR_STATUS,  info.ATTN_BS_STATUS, info.EMERGEN_STATUS,  
+       info.WK_DAY_STATUS, info.FS_DAY_STATUS,  info.TS_STATUS,  info.PAY_SAL,  info.PAY_OTHER,  info.OTORG, info.OTCOM,  info.PRODUC_STATUS
 FROM TB_PERSONAL_INFO info,TB_PERSONAL_INFO_OTHER other, TB_IDCARD_MULTIPLE mul
 WHERE info.company  = :p_company
 AND   other.company = info.company
 AND   mul.company   = info.company
 AND   mul.USER_NAME = :p_user
 AND   info.cardno   = mul.cardno
-AND   other.cardno  = info.cardno) a, TB_PERSONAL_INFO_PICTURE pic
-WHERE pic.company   = :p_company
-AND   pic.cardno    = a.cardno
-ORDER BY a.cardno ASC
+AND   other.cardno  = info.cardno
+ORDER BY DEPARTMENTNM, SECTIONNM, LINENO, CARDNO ASC
