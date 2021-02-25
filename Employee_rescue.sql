@@ -21,12 +21,12 @@ AND   emp.BANK_NAME    LIKE DECODE(NVL(:p_bkname,'all'),'all','%',:p_bkname)
 AND   emp.MFT_TYPE     LIKE DECODE(NVL(:p_mft_type,'all'),'all','%',:p_mft_type) 
 AND   emp.cardno       LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:p_cardno) 
 AND   emp.active       LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
-ORDER BY emp.TEAM_NAME, emp.TEAM_DESIGNATION DESC 
+ORDER BY emp.TEAM_NAME, emp.TEAM_DESIGNATION DESC  
 
 
 
 
--------------  seletced  --
+-------------  seletced  ---- 
 
 
 
@@ -132,4 +132,5 @@ WHERE pic.company   = :p_company
 AND   sing.company  = pic.company
 AND   pic.cardno    = a.cardno
 AND   sing.cardno   = a.cardno
-ORDER BY a.TEAM_NAME, a.TEAM_DESIGNATION DESC 
+ORDER BY a.TEAM_NAME, a.TEAM_DESIGNATION DESC
+
