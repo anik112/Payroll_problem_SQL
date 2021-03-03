@@ -25,6 +25,50 @@ ORDER BY emp.DEPARTMENTNM, emp.SECTIONNM, emp.lineno, emp.cardno ASC
 
 
 
+--- selected --
+
+
+
+SELECT emp.CARDNO, emp.ENMNAME_BANGLA, other.NID, emp.DESIGNATION_BANGLA, emp.FATHER_NAME, emp.MOTHER_NAME, 
+emp.JOINING_DATE, emp.DEPT_BANGLA, emp.SEC_BANGLA, emp.LINENO, emp.BIRTH_DATE, emp.GENDER, emp.PRESENT_ADD_BAN,  
+emp.PRESENT_PO_BAN,  emp.PRESENT_PS_BAN,  emp.PRESENT_DIST_BAN, emp.PERMANENT_ADD_BAN,  emp.PERMANENT_PO_BAN,
+emp.PERMANENT_PS_BAN,  emp.PERMANENT_DIST_BAN,emp.FATHER_NAME_BAN, emp.SPOUSE_NAME_BAN,  emp.MOTHER_NAME_BAN,
+emp.WDAY, emp.SHIFT, emp.SALARY_GRADE
+FROM  TB_PERSONAL_INFO emp, TB_PERSONAL_INFO_OTHER other, TB_IDCARD_MULTIPLE mul
+WHERE emp.company      = :p_company
+AND   emp.company      = other.company
+AND   emp.company      = mul.company
+AND   emp.JOINING_DATE <= :p_date
+AND   mul.USER_NAME    = :p_user
+AND   emp.cardno       = other.cardno
+AND   emp.cardno       = mul.cardno
+
+
+-----------------------------
+
+
+
+SELECT emp.DEPARTMENTNM, emp.SECTIONNM, emp.LINENO, emp.CARDNO, emp.EMPNAME, 
+       emp.FATHER_NAME, emp.MOTHER_NAME, emp.JOINING_DATE, emp.DESIGNATION, 
+	   emp.SALARY_GRADE, emp.BIRTH_DATE, emp.GENDER, emp.BLOODGROUP, emp.SHIFT, 
+	   emp.PERMANENTADDRESS, emp.WDAY, emp.RELIGION, emp.RESIGNATION_DATE,
+	   other.BOOK_SL_NO, other.OPEN_DATE, other.NID, other.OWN_CELLNO,
+                   emp.ENMNAME_BANGLA, emp.DESIGNATION_BANGLA, emp.DEPT_BANGLA, emp.SEC_BANGLA, 
+                  emp.PRESENT_ADD_BAN,  emp.PRESENT_PO_BAN,  emp.PRESENT_PS_BAN,  emp.PRESENT_DIST_BAN, 
+                  emp.PERMANENT_ADD_BAN,  emp.PERMANENT_PO_BAN,  emp.PERMANENT_PS_BAN,  emp.PERMANENT_DIST_BAN,
+                   emp.FATHER_NAME_BAN,  emp.SPOUSE_NAME_BAN,  emp.MOTHER_NAME_BAN
+FROM   TB_PERSONAL_INFO emp, TB_IDCARD_MULTIPLE mul , TB_PERSONAL_INFO_OTHER other
+WHERE  emp.company  = :p_company
+AND    emp.company    = mul.company
+AND    emp.company   = other.company
+AND    emp.JOINING_DATE <= :p_date
+AND   mul.USER_NAME = :p_user
+AND   emp.cardno       = mul.cardno
+AND    emp.CARDNO  = other.CARDNO
+AND   emp.GENDER LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gender)
+ORDER BY emp.DEPARTMENTNM, emp.SECTIONNM, emp.lineno, emp.cardno ASC
+
+
 
 
 SELECT emp.DEPARTMENTNM, emp.SECTIONNM, emp.LINENO, emp.CARDNO, emp.EMPNAME, 
