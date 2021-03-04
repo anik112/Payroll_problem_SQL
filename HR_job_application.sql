@@ -3,11 +3,13 @@ SELECT info.cardno, info.ENMNAME_BANGLA, info.FATHER_NAME_BAN,  info.SPOUSE_NAME
 	   info.PRESENT_PS_BAN,info.PRESENT_DIST_BAN, info.PERMANENT_ADD_BAN,  info.PERMANENT_PO_BAN,  info.PERMANENT_PS_BAN,
 	   info.PERMANENT_DIST_BAN,other.REF1, other.OWN_CELLNO, other.EMAIL_ADDRESS, info.joining_date, other.NID, 
 	   other.BIRTH_CERTIFICATE_NO, info.MARITAL_STATUS, other.TOTALCHILD, other.MALECHILD, other.FEMALECHILD, info.BIRTH_DATE, INFO.COMPANY,
-	   (info.grosssalary + info.GROSS_BK) grosssalary, info.BLOODGROUP  
-FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other
-WHERE info.company = :p_company
+	   (info.grosssalary + info.GROSS_BK) grosssalary, info.BLOODGROUP, pic.EMPPICTURE
+FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other, TB_PERSONAL_INFO_PICTURE pic
+WHERE info.company =:p_company
 AND   info.company = other.company
+AND   info.company = pic.company
 AND   info.cardno  = other.cardno
+AND   info.cardno  = pic.cardno
 AND   TO_CHAR(info.JOINING_DATE,'RRRR')         LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
 AND   RTRIM(TO_CHAR(info.JOINING_DATE,'Month')) LIKE DECODE(NVL(:p_month,'all'),'all','%',:p_month)
 AND   info.DEPARTMENTNM LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
@@ -24,13 +26,27 @@ AND   info.active       LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY info.DEPARTMENTNM, info.SECTIONNM, info.lineno, info.cardno ASC
 
 
+---------
+SELECT info.cardno, info.secreteno, info.empname, info.joining_date, info.designation, INFO.MOTHER_NAME,
+       (info.grosssalary + info.GROSS_BK)grosssalary,  info.lineno, info.SECTIONNM, info.DEPARTMENTNM, info.MARITAL_STATUS, info.RELIGION,
+       info.FATHER_NAME, info.PRESENT_ADDRESS, info.BIRTH_DATE, info.GENDER, info.BLOODGROUP,
+	   info.ENMNAME_BANGLA, info.DESIGNATION_BANGLA, info.DEPT_BANGLA, info.SEC_BANGLA,
+	   info.SALARY_GRADE, info.PERMANENTADDRESS, info.HOUSBANDNAME,
+                   other.TOTALCHILD, other.MALECHILD, other.FEMALECHILD, other.NOMINEENAME, other.NOMINEEADDRESS,
+                   other.NOMINEERELATION, other.REF1, INFO.COMPANY, pic.EMPPICTURE, other.BIRTH_CERTIFICATE_NO, other.EMAIL_ADDRESS, other.NID, other.OWN_CELLNO,
+                  info.PRESENT_ADD_BAN,  info.PRESENT_PO_BAN,  info.PRESENT_PS_BAN,  info.PRESENT_DIST_BAN, 
+                  info.PERMANENT_ADD_BAN,  info.PERMANENT_PO_BAN,  info.PERMANENT_PS_BAN,  info.PERMANENT_DIST_BAN,
+                   info.FATHER_NAME_BAN,  info.SPOUSE_NAME_BAN,  info.MOTHER_NAME_BAN
+
+--------
+
 
 SELECT DISTINCT edu.HIGHEST_DEGREE,info.company COMPANY_EDU,info.cardno CARDNO_EDU,
           EDU.LEVEL_DEGREE, EDU.INSTITUTE_NAME, EDU.PASSING_YR, EDU.CLASS_GRADE, EDU.SUBJECT
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_EDUCATIONAL edu
-WHERE info.company = :p_company
-AND   info.company = edu.company
-AND   info.cardno  = edu.cardno
+WHERE info.company   =:p_company
+AND   info.company   = edu.company
+AND   info.cardno    = edu.cardno
 AND   TO_CHAR(info.JOINING_DATE,'RRRR')         LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
 AND   RTRIM(TO_CHAR(info.JOINING_DATE,'Month')) LIKE DECODE(NVL(:p_month,'all'),'all','%',:p_month)
 AND   info.DEPARTMENTNM LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
@@ -49,12 +65,12 @@ ORDER BY EDU.PASSING_YR ASC
 
 
 
-SELECT emp.COMPANYNAME, emp.START_DATE, emp.END_DATE, emp.DESIGNATION DESIGNATION_exp,
+SELECT emp.COMPANYNAME, emp.START_DATE ,  emp.END_DATE, emp.DESIGNATION DESIGNATION_exp,
        info.company company_EXP,info.cardno CARD_EXP
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_EMPLOYMENT emp
-WHERE info.company = :p_company
-AND   info.company = emp.company
-AND   info.cardno  = emp.cardno
+WHERE info.company   =:p_company
+AND   info.company   = emp.company
+AND   info.cardno    = emp.cardno
 AND   TO_CHAR(info.JOINING_DATE,'RRRR')         LIKE DECODE(NVL(:p_year,'all'),'all','%',:p_year)
 AND   RTRIM(TO_CHAR(info.JOINING_DATE,'Month')) LIKE DECODE(NVL(:p_month,'all'),'all','%',:p_month)
 AND   info.DEPARTMENTNM LIKE DECODE(NVL(:p_deptname,'all'),'all','%',:p_deptname)
@@ -71,7 +87,8 @@ AND   info.active       LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY emp.START_DATE ASC
 
 
----------- selected  ------------
+----------------- selected   ----------
+
 
 
 SELECT info.cardno, info.ENMNAME_BANGLA, info.FATHER_NAME_BAN,  info.SPOUSE_NAME_BAN,  info.MOTHER_NAME_BAN,
@@ -79,36 +96,40 @@ SELECT info.cardno, info.ENMNAME_BANGLA, info.FATHER_NAME_BAN,  info.SPOUSE_NAME
 	   info.PRESENT_PS_BAN,info.PRESENT_DIST_BAN, info.PERMANENT_ADD_BAN,  info.PERMANENT_PO_BAN,  info.PERMANENT_PS_BAN,
 	   info.PERMANENT_DIST_BAN,other.REF1, other.OWN_CELLNO, other.EMAIL_ADDRESS, info.joining_date, other.NID, 
 	   other.BIRTH_CERTIFICATE_NO, info.MARITAL_STATUS, other.TOTALCHILD, other.MALECHILD, other.FEMALECHILD, info.BIRTH_DATE, INFO.COMPANY,
-	   (info.grosssalary + info.GROSS_BK) grosssalary, info.BLOODGROUP  
-FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other, TB_IDCARD_MULTIPLE mul
-WHERE info.company   = :p_company
-AND   info.company   = other.company
-AND   info.company   = mul.company
-AND   mul.USER_NAME  = :p_user
-AND   info.cardno    = other.cardno
-AND   info.cardno    = mul.cardno
+	   (info.grosssalary + info.GROSS_BK) grosssalary, info.BLOODGROUP, pic.EMPPICTURE
+FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other, 
+      TB_PERSONAL_INFO_PICTURE pic, TB_IDCARD_MULTIPLE mul
+WHERE info.company = :p_company
+AND   info.company = other.company
+AND   info.company = pic.company
+AND   info.company = mul.COMPANY
+AND   mul.USER_NAME= :p_user
+AND   info.cardno  = mul.cardno
+AND   info.cardno  = other.cardno
+AND   info.cardno  = pic.cardno
 
 
 
-SELECT DISTINCT edu.HIGHEST_DEGREE,info.company COMPANY_EDU,info.cardno CARDNO_EDU,
-          EDU.LEVEL_DEGREE, EDU.INSTITUTE_NAME, EDU.PASSING_YR, EDU.CLASS_GRADE, EDU.SUBJECT
+SELECT DISTINCT edu.HIGHEST_DEGREE,info.company COMPANY_EDU,info.cardno CARDNO_EDU,EDU.LEVEL_DEGREE,
+                EDU.INSTITUTE_NAME, EDU.PASSING_YR, EDU.CLASS_GRADE, EDU.SUBJECT
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_EDUCATIONAL edu, TB_IDCARD_MULTIPLE mul
 WHERE info.company   = :p_company
 AND   info.company   = edu.company
 AND   info.company   = mul.company
 AND   mul.USER_NAME  = :p_user
-AND   info.cardno    = edu.cardno
 AND   info.cardno    = mul.cardno
+AND   info.cardno    = edu.cardno
 ORDER BY EDU.PASSING_YR ASC
 
 
-SELECT emp.COMPANYNAME, emp.START_DATE, emp.END_DATE, emp.DESIGNATION DESIGNATION_exp,
+
+SELECT emp.COMPANYNAME, emp.START_DATE ,  emp.END_DATE, emp.DESIGNATION DESIGNATION_exp,
        info.company company_EXP,info.cardno CARD_EXP
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_EMPLOYMENT emp, TB_IDCARD_MULTIPLE mul
 WHERE info.company   = :p_company
 AND   info.company   = emp.company
 AND   info.company   = mul.company
 AND   mul.USER_NAME  = :p_user
-AND   info.cardno    = emp.cardno
 AND   info.cardno    = mul.cardno
+AND   info.cardno    = emp.cardno
 ORDER BY emp.START_DATE ASC

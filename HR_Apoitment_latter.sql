@@ -47,7 +47,7 @@ AND   info.cardno       LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:p_cardno)
 AND   info.active       LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY EDU.PASSING_YR ASC
 
-
+--------------- sleected   -------
 SELECT info.cardno,  info.ENMNAME_BANGLA, info.FATHER_NAME_BAN,  info.SPOUSE_NAME_BAN,  info.MOTHER_NAME_BAN,
        info.joining_date, other.BIRTH_CERTIFICATE_NO,  other.NID, other.SPECIAL_MARK, info.BIRTH_DATE,  info.DESIGNATION_BANGLA,
        info.SALARY_GRADE, (info.grosssalary + info.GROSS_BK)grosssalary, info.PRESENT_ADD_BAN,  info.PRESENT_PO_BAN,  
