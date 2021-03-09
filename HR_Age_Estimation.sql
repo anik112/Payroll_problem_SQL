@@ -1,7 +1,8 @@
 SELECT info.cardno,info.ENMNAME_BANGLA, info.FATHER_NAME_BAN, info.MOTHER_NAME_BAN, info.SPOUSE_NAME_BAN,
        info.PRESENT_ADD_BAN,  info.PRESENT_PO_BAN,  info.PRESENT_PS_BAN,  info.PRESENT_DIST_BAN, 
        info.PERMANENT_ADD_BAN,  info.PERMANENT_PO_BAN,  info.PERMANENT_PS_BAN,  info.PERMANENT_DIST_BAN,
-       info.BIRTH_DATE, other.HEIGHT, other.WEIGHT, info.JOINING_DATE
+       info.BIRTH_DATE, other.HEIGHT, other.WEIGHT, info.JOINING_DATE, info.DEPARTMENTNM, info.SECTIONNM,
+	   info.LINENO, info.EMPNAME
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other
 WHERE info.company = :p_company
 AND   info.company = other.company
@@ -27,7 +28,8 @@ ORDER BY info.DEPARTMENTNM, info.SECTIONNM, info.lineno, info.cardno ASC
 SELECT info.cardno,info.ENMNAME_BANGLA, info.FATHER_NAME_BAN, info.MOTHER_NAME_BAN, info.SPOUSE_NAME_BAN,
        info.PRESENT_ADD_BAN,  info.PRESENT_PO_BAN,  info.PRESENT_PS_BAN,  info.PRESENT_DIST_BAN, 
        info.PERMANENT_ADD_BAN,  info.PERMANENT_PO_BAN,  info.PERMANENT_PS_BAN,  info.PERMANENT_DIST_BAN,
-       info.BIRTH_DATE, other.HEIGHT, other.WEIGHT, info.JOINING_DATE
+       info.BIRTH_DATE, other.HEIGHT, other.WEIGHT, info.JOINING_DATE, info.DEPARTMENTNM, info.SECTIONNM,
+       info.LINENO, info.EMPNAME
 FROM  TB_PERSONAL_INFO info, TB_PERSONAL_INFO_OTHER other, TB_IDCARD_MULTIPLE mul
 WHERE info.company  = :p_company
 AND   info.company  = mul.company
