@@ -1,0 +1,67 @@
+function CF_Total_AmtFormula return Number is
+  
+  v_amount number := 0;
+   
+begin
+  
+  v_amount := ( :CF_otamount + :CF_Holiday_Bonus);
+  
+  return v_amount;
+  
+exception
+	when others then v_amount := 0;
+end;
+
+
+------------------------------------------
+
+
+
+function CF_Dur_OTHRFormula return Number is
+
+  v_hr   number := 0;					    
+  v_min  number := 0;
+  v_othr number := 0;
+  
+  v_otvalue  number := 0;
+  v_othrpart number := 0;
+  
+begin					    
+				
+	 begin
+   select figure into v_otvalue
+   from   TB_SETUP_INFO
+   where  ITEM_NAME = 'MinConHr';
+   exception
+   	when no_data_found then v_otvalue := 0;
+   	       when others then v_otvalue := 0;
+   end;
+   
+		v_hr  := substr(:duration,1,instr(:duration,':')-1);
+		v_min := substr(:duration,instr(:duration,':')+1);
+			
+		 	  if v_min >= v_otvalue then
+	         v_othr := v_hr + 1;
+			     else
+			     v_othr := v_hr;
+			     end if;
+
+			  if v_othr > 6 then
+			     v_othr := v_othr - 1;
+			     else
+				   v_othr := v_othr;
+				   end if;
+
+				----  ***  ---  if c1rec.WORKERTYPE  in ('Staff','Official','StaffOT','StaffBenefit') then
+				if :OTORG = 'N' then	
+				   v_othr     := 0; 
+				   else
+				   v_othr     := v_othr; 
+				   end if;
+		
+		return 	v_othr;				   
+
+exception
+  	when others then null;
+end;
+		
