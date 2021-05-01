@@ -2,7 +2,7 @@ SELECT per.empname,per.departmentnm,per.lineno,per.sectionnm,per.designation,
                ot.cardno, ot.d1, ot.d2, ot.d3, ot.d4, ot.d5, ot.d6, ot.d7, ot.d8, ot.d9, ot.d10, ot.d11, ot.d12, ot.d13, ot.d14, ot.d15, 
                ot.d16, ot.d17, ot.d18, ot.d19, ot.d20, ot.d21, ot.d22, ot.d23, ot.d24, ot.d25, ot.d26, ot.d27, ot.d28, ot.d29, ot.d30, 
                ot.d31, ot.total_otamt, ot.company, ot.finmonth, ot.finyear
-FROM   tb_clr_month_ot_detail ot, tb_personal_info per 
+FROM   TB_CLR_MONTH_OT_DETAIL ot, TB_PERSONAL_INFO per 
 WHERE per.company  = :p_company 
 AND   per.company     = ot.company 
 AND   ot.finyear            = :p_year
@@ -20,3 +20,4 @@ AND   per.gender               LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gen
 AND   per.cardno               LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)  
 AND   per.active                 LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active) 
 ORDER BY per.lineno,per.cardno ASC
+
