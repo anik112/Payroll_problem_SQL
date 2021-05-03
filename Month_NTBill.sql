@@ -1,18 +1,18 @@
-SELECT sal.cardno, sal.empname, sal.enmname_bangla, sal.designation, sal.designation_ban,  
-       (sal.basicsal_ch + sal.basicsal_bk)basicsal, (sal.grosssal_ch + grosssal_bk)grosssal,  
-       sal.departmentnm,  sal.dept_bangla,  sal.lineno, sal.sectionnm, sal.sec_bangla, sal.otrate, per.joining_date, per.shift,
-       mon.tiffin_day, mon.tiffin_day_pt , (sal.tiffin_bill_ch + sal.tiffin_bill_bk)tiffin_bill, (sal.tiffin_bill_pt_ch + sal.tiffin_bill_pt_bk)tiffin_bill_pt
+SELECT sal.cardno, sal.empname, sal.ENMNAME_BANGLA, sal.designation, sal.DESIGNATION_BAN,  
+       (sal.BASICSAL_CH + sal.BASICSAL_BK)BASICSAL, (sal.GROSSSAL_CH + GROSSSAL_BK)GROSSSAL,  
+       sal.DEPARTMENTNM,  sal.DEPT_BANGLA,  sal.lineno, sal.SECTIONNM, sal.SEC_BANGLA, sal.OTRATE, per.JOINING_DATE, per.SHIFT,
+       mon.IFTAR_DAY, (sal.IFTAR_BILL_CH + sal.IFTAR_BILL_BK)IFTAR_BILL 
 FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
 WHERE  mon.company  = :p_company 
-AND    sal.company        = per.company
-AND    mon.company      = per.company   
-AND    mon.finyear          =  :p_year 
-AND    mon.finmonth       =  :p_month 
-AND    mon.finyear          =  sal.finyear 
-AND    mon.finmonth       =  sal.finmonth 
-AND    (sal.tiffin_bill_ch + sal.tiffin_bill_bk)  > 0
-AND    sal.cardno           =  per.cardno 
-AND    mon.cardno         =  per.cardno
+AND    sal.company  = per.company
+AND    mon.company  = per.company   
+AND    mon.finyear  =  :p_year 
+AND    mon.finmonth =  :p_month 
+AND    mon.finyear  =  sal.finyear 
+AND    mon.finmonth =  sal.finmonth 
+AND    (sal.IFTAR_BILL_CH + sal.IFTAR_BILL_BK)  > 0
+AND    sal.cardno   =  per.cardno 
+AND    mon.cardno   =  per.cardno 
 AND    per.departmentnm LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept) 
 AND    per.sectionnm       LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section) 
 AND    per.designation       LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation) 

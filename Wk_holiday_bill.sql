@@ -1,21 +1,21 @@
 SELECT sal.cardno, sal.empname, sal.enmname_bangla, sal.designation, sal.designation_ban,  
        (sal.basicsal_ch + sal.basicsal_bk)basicsal, (sal.grosssal_ch + grosssal_bk)grosssal,  
        sal.departmentnm,  sal.dept_bangla,  sal.lineno, sal.sectionnm, sal.sec_bangla, sal.otrate, per.joining_date, per.shift,
-       mon.tiffin_day, mon.tiffin_day_pt , (sal.tiffin_bill_ch + sal.tiffin_bill_bk)tiffin_bill, (sal.tiffin_bill_pt_ch + sal.tiffin_bill_pt_bk)tiffin_bill_pt
+       mon.wk_holi_duty, (sal.wk_holi_bill_ch + sal.wk_holi_bill_bk)wk_holi_bill 
 FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
 WHERE  mon.company  = :p_company 
-AND    sal.company        = per.company
-AND    mon.company      = per.company   
-AND    mon.finyear          =  :p_year 
-AND    mon.finmonth       =  :p_month 
-AND    mon.finyear          =  sal.finyear 
-AND    mon.finmonth       =  sal.finmonth 
-AND    (sal.tiffin_bill_ch + sal.tiffin_bill_bk)  > 0
-AND    sal.cardno           =  per.cardno 
-AND    mon.cardno         =  per.cardno
+AND    sal.company  = per.company
+AND    mon.company  = per.company   
+AND    mon.finyear  =  :p_year 
+AND    mon.finmonth =  :p_month 
+AND    mon.finyear  =  sal.finyear 
+AND    mon.finmonth =  sal.finmonth 
+AND    (sal.wk_holi_bill_ch + sal.wk_holi_bill_bk)  > 0
+AND    sal.cardno   =  per.cardno 
+AND    mon.cardno   =  per.cardno 
 AND    per.departmentnm LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept) 
-AND    per.sectionnm       LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section) 
-AND    per.designation       LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation) 
+AND    per.sectionnm        LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section) 
+AND    per.designation      LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation) 
 AND    per.workertype      LIKE DECODE(NVL(:p_woker,'all'),'all','%',:p_woker)
 AND    per.floorno             LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
 AND    per.machineno      LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)
