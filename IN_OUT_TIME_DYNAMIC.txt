@@ -63,3 +63,58 @@ WHERE
 	 --AND SECTIONNM='Sewing'
 	 AND FINMONTH='April'
 	 AND FINYEAR=2019
+
+	 
+-----------------------------
+
+
+select '17:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 15))||' PM',
+'10:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))
+from tb_data_master_temp 
+where company=4
+and   finyear=2021
+and   finmonth='April'
+and   pdate between '15-April-2021' and '30-April-2021'
+and   otmin=120
+
+
+
+update tb_data_master_temp 
+set  outtime='17:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM',
+DURATION='10:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))
+where company=4
+and   finyear=2021
+and   finmonth='April'
+and   pdate between '15-April-2021' and '30-April-2021'
+and   otmin=120
+
+
+update tb_data_master_temp 
+set  outtime='15:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM',
+DURATION='8:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))
+where company=4
+and   finyear=2021
+and   finmonth='April'
+and   pdate between '15-April-2021' and '30-April-2021'
+and   otmin=0
+
+
+update tb_data_master_temp 
+set  outtime='16:'||TRUNC(DBMS_RANDOM.VALUE(15, 25))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM',
+DURATION='9:'||TRUNC(DBMS_RANDOM.VALUE(10, 15))
+where company=4
+and   finyear=2021
+and   finmonth='April'
+and   pdate between '15-April-2021' and '30-April-2021'
+and   otmin=60
+
+
+
+update tb_data_master_temp 
+set  outtime='16:'||TRUNC(DBMS_RANDOM.VALUE(40, 55))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM',
+DURATION='10:'||TRUNC(DBMS_RANDOM.VALUE(10, 15))
+where company=4
+and   finyear=2021
+and   finmonth='April'
+and   pdate between '15-April-2021' and '30-April-2021'
+and   otmin=60
