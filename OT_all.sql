@@ -1,6 +1,6 @@
 SELECT sal.cardno, sal.empname, sal.enmname_bangla, sal.designation, sal.designation_ban,  (sal.basicsal_ch + sal.basicsal_bk)basicsal, (sal.grosssal_ch + grosssal_bk)grosssal, sal.otamount, 
                sal.departmentnm,  sal.dept_bangla,  sal.lineno, sal.sectionnm, sal.sec_bangla, sal.otrate, mon.othr, per.joining_date, per.shift, per.CASH_TYPE,  per.BANK_NAME,  
-			   per.AC_NO, per.MFT_TYPE,  per.MFT_ACNO  
+			   per.AC_NO, per.MFT_TYPE,  per.MFT_ACNO , sal.EXTRA_OTAMT
 FROM   TB_MONTH_SALARY sal,TB_MONTH_TOTALDAY  mon, TB_PERSONAL_INFO per 
 WHERE  mon.company  = :p_company 
 AND    sal.company        = per.company
