@@ -48,9 +48,9 @@ ORDER BY PDATE ASC
 --- *******************************
 
 -- create temp table like tb_data_master
-create table new_table as ( select * from tb_data_master where FINYEAR=2019 and FINMONTH='March');
+CREATE TABLE new_table AS ( SELECT * FROM tb_data_master WHERE FINYEAR=2019 AND FINMONTH='March');
 -- delete temp table
-drop table new_table
+DROP TABLE new_table
 
 
 -- ** update outtime and duration and ot DYNAMIC
@@ -90,3 +90,34 @@ AND	   CARDNO='018979'
 
 
 --- **************************************
+
+SELECT mst_tmp.pdate, mst_tmp.intime, mst_tmp.outtime, mst.intime, mst.outtime, ('15:'||TRUNC(DBMS_RANDOM.VALUE(25, 30))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM')
+FROM tb_data_master_temp mst_tmp, tb_data_master mst
+WHERE mst_tmp.pdate BETWEEN '15-April-2021' AND '11-May-2021'
+AND   mst_tmp.pdate=mst.pdate
+AND   TO_NUMBER(SUBSTR(mst_tmp.outtime,1,2)) < 10
+AND   mst_tmp.cardno=mst.cardno
+AND   mst_tmp.cardno IN (SELECT cardno FROM tb_personal_info
+	 		   WHERE company='Apparel Plus Limited.'
+			   AND   active=0
+			   AND   otcom='N'
+			   )
+			   
+			   
+			   
+			   
+UPDATE tb_data_master_temp
+SET outtime=('15:'||TRUNC(DBMS_RANDOM.VALUE(25, 30))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM'),
+    DURATION = '8:'||TRUNC(DBMS_RANDOM.VALUE(25, 30)),
+	OTMIN=0,
+	OTPART=0
+WHERE pdate BETWEEN '15-April-2021' AND '11-May-2021'
+AND   TO_NUMBER(SUBSTR(outtime,1,2)) < 10
+AND   cardno IN (SELECT cardno FROM tb_personal_info
+	 		   WHERE company='Apparel Plus Limited.'
+			   AND   active=0
+			   AND   otcom='N'
+			   )
+
+
+
