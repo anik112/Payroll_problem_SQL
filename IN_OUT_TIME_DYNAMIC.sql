@@ -45,7 +45,7 @@ AND	   CARDNO='018917'
 ORDER BY PDATE ASC
 
 
---- *******************************
+--- ******************_*************
 
 -- create temp table like tb_data_master
 CREATE TABLE new_table AS ( SELECT * FROM tb_data_master WHERE FINYEAR=2019 AND FINMONTH='March');
@@ -100,8 +100,7 @@ AND   mst_tmp.cardno=mst.cardno
 AND   mst_tmp.cardno IN (SELECT cardno FROM tb_personal_info
 	 		   WHERE company='Apparel Plus Limited.'
 			   AND   active=0
-			   AND   otcom='N'
-			   )
+			   AND   otcom='N')
 			   
 			   
 			   
