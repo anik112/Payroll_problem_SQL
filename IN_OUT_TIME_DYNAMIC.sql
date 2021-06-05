@@ -119,4 +119,33 @@ AND   cardno IN (SELECT cardno FROM tb_personal_info
 			   )
 
 
+----------------------------------------
 
+
+SELECT mst.CARDNO, mst.PDATE, mst.INTIME, mst.OUTTIME, mst.DURATION, (mst.OTMIN+mst.OTPART),mst.OTMIN, mst.OTPART, tmp.INTIME, tmp.OUTTIME, tmp.DURATION, tmp.OTMIN
+FROM TB_DATA_MASTER mst, TB_DATA_MASTER_TEMP tmp
+WHERE mst.COMPANY = 4
+AND   mst.COMPANY = tmp.COMPANY
+AND   mst.PDATE = '02-May-2021'
+AND   mst.PDATE = tmp.PDATE
+AND   mst.CARDNO = tmp.CARDNO
+AND   SUBSTR(mst.outtime,1,(INSTR(mst.outtime,':')-1)) > 15
+AND   SUBSTR(mst.DURATION,1,(INSTR(mst.DURATION,':')-1)) = 9
+--and   mst.OTMIN <= 120
+AND   mst.CARDNO IN (SELECT cardno FROM tb_personal_info WHERE company='Mascot Garments Ltd.-5TH' AND otorg='Y')
+
+
+
+
+UPDATE tb_data_master 
+SET OUTTIME='15:'||TRUNC(DBMS_RANDOM.VALUE(10, 15))||':'||TRUNC(DBMS_RANDOM.VALUE(10, 59))||' PM',
+	DURATION='8:'||TRUNC(DBMS_RANDOM.VALUE(10, 15)),
+    otmin=0,
+    otpart=0
+--select * from tb_data_master
+WHERE company=4
+AND   PDATE  ='11-May-2021'
+AND   SUBSTR(outtime,1,(INSTR(outtime,':')-1)) > 15
+AND   SUBSTR(DURATION,1,(INSTR(DURATION,':')-1)) > 8
+--and   sectionnm in ('Thread Cutting')
+and   CARDNO in (select cardno from tb_personal_info where company='Mascot Garments Ltd.-5TH' and otorg='Y')
