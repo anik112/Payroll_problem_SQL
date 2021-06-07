@@ -5,6 +5,7 @@ AND   info.company      =arr.company
 AND   arr.finyear      =:p_year
 AND   arr.finmonth  =:p_month
 AND   arr.cardno          = info.cardno
+
 AND   info.departmentnm  LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept)
 AND   info.sectionnm  LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section)
 AND   info.designation LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation)
@@ -17,6 +18,7 @@ AND   arr.reason_status LIKE DECODE(NVL(:p_rea_status,'all'),'all','%',:p_rea_st
 AND   arr.adjustment_status LIKE DECODE(NVL(:p_adj_status,'all'),'all','%',:p_adj_status)
 AND   info.cardno LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
 AND   info.active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
+
 ORDER BY info.departmentnm, info.sectionnm, info.lineno,arr.cardno ASC
 
 
