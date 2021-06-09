@@ -1,0 +1,78 @@
+/*SELECT table_name,
+CASE
+  WHEN owner='SYS' THEN 'The owner is SYS'
+  WHEN owner='SYSTEM' THEN 'The owner is SYSTEM'
+  ELSE 'The owner is another value'
+END
+FROM all_tables;
+
+SELECT (TO_DATE('09:00:01 AM','HH:MI:SS PM') - TO_DATE('06:00:01 PM','HH:MI:SS PM'))*24, (TO_DATE('23:00:01','HH24:MI:SS')) FROM dual;
+
+SELECT cardno,ABS(TO_CHAR((TO_DATE('08:00:01','HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99')) FROM
+TB_DATA_MASTER mst
+WHERE mst.PDATE ='04-July-2020'
+--AND   cardno='0898'
+---TO_DATE(mst.OUTTIME,'HH24:MI:SS PM')*/
+
+
+
+SELECT mst.CARDNO, mst.PDATE, mst.INTIME, mst.OUTTIME, info.WORKERTYPE,TO_CHAR(duty.LASTINTIME,'HH24:MI:SS'),TO_CHAR(duty.EXITTIME,'HH24:MI:SS')
+FROM TB_DUTY_SCHEDULE_SETUP duty, TB_DATA_MASTER mst, TB_PERSONAL_INFO info
+WHERE info.COMPANY ='Woo Ree Apparels Ltd.'
+AND   info.COMPANY =duty.COMPANY
+AND   mst.COMPANY  =2
+AND   mst.PDATE ='04-July-2020'
+AND   duty.SECTION_WORKER=info.WORKERTYPE
+AND   duty.SHIFT   =info.SHIFT
+AND   mst.CARDNO   =info.CARDNO
+
+
+--- get in out data with duration (It's also use the in time from duty schedule table)
+
+SELECT mst.CARDNO, mst.PDATE, mst.INTIME, mst.OUTTIME, info.WORKERTYPE,
+ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99')) dur, 
+TO_NUMBER(ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99')))-8 ot,
+TO_CHAR(duty.LATESTARTTIME,'HH:MI:SS PM') last_intime,
+TO_CHAR(duty.EXITTIME,'HH:MI:SS PM') last_outtime
+FROM TB_DUTY_SCHEDULE_SETUP duty, TB_DATA_MASTER mst, TB_PERSONAL_INFO info
+WHERE info.COMPANY ='Woo Ree Apparels Ltd.'
+AND   info.COMPANY =duty.COMPANY
+AND   mst.COMPANY  =2
+--AND   mst.PDATE    ='04-July-2020'
+AND   duty.SECTION_WORKER=info.WORKERTYPE
+AND   duty.SHIFT   =info.SHIFT
+AND   mst.CARDNO   =info.CARDNO
+
+
+
+-------------
+
+
+
+UPDATE TB_DATA_MASTER mst2
+SET (DURATION)=(
+	SELECT SUBSTR(
+	       ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99'))
+		   ,0
+		   ,INSTR(TO_NUMBER(ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99'))),'.')+1)
+		   ,2
+		   ,'0')
+		   ||':'|| 
+	LPAD(SUBSTR(
+	       ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99'))
+		   ,0
+		   ,INSTR(TO_NUMBER(ABS(TO_CHAR((TO_DATE(TO_CHAR(duty.LATESTARTTIME,'HH24:MI:SS'),'HH24:MI:SS')-TO_DATE(SUBSTR(mst.OUTTIME,0,8),'HH24:MI:SS'))*24,'99.99'))),'.')-1)
+		   ,2
+		   ,'0')
+	FROM TB_DUTY_SCHEDULE_SETUP duty, TB_DATA_MASTER mst, TB_PERSONAL_INFO info
+	WHERE info.COMPANY = 'Woo Ree Apparels Ltd.'
+	AND   info.COMPANY = duty.COMPANY
+	AND   mst.COMPANY  = 2
+	AND   mst.PDATE    = '04-July-2020'
+	AND   duty.SECTION_WORKER=info.WORKERTYPE
+	AND   duty.SHIFT   = info.SHIFT
+	AND   mst.CARDNO   = mst2.cardno
+	AND   mst.CARDNO   = info.CARDNO
+)
+WHERE COMPANY = 2
+AND   pdate   = '04-July-2020'
