@@ -150,3 +150,10 @@ SUBSTR(4.50,INSTR(4.50,'.')+1,1)"10th place",
 FROM dual
 
 
+-------------------------------------
+
+-- CHECK AUTO extande
+SELECT tablespace_name, file_name, autoextensible FROM dba_data_files;
+
+-- set curser size 
+ALTER SYSTEM SET open_cursors = 5000 SCOPE=BOTH;
