@@ -157,3 +157,13 @@ SELECT tablespace_name, file_name, autoextensible FROM dba_data_files;
 
 -- set curser size 
 ALTER SYSTEM SET open_cursors = 5000 SCOPE=BOTH;
+
+
+SELECT NAME FROM v$datafile WHERE NAME LIKE '%UNNAMED%'
+
+SELECT * FROM v$datafile
+
+--- update index auto extend 
+ALTER DATABASE DATAFILE 'D:\ORACLE\PRODUCT\10.2.0\ORADATA\PAYROLL\INDX01.DBF' AUTOEXTEND ON
+
+
