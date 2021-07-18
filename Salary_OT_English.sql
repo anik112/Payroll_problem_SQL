@@ -42,6 +42,7 @@ AND   per.cardno                    LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:
 AND   per.active                     LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY per.DEPARTMENTNM,per.SECTIONNM,per.lineno,per.cardno ASC
 
+
 --------------- Total 
 
 
@@ -153,7 +154,8 @@ AND   per.cardno                    LIKE DECODE(NVL(:p_cardno,'all'),'all','%',:
 AND   per.active                     LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY per.DEPARTMENTNM,per.SECTIONNM,per.lineno,per.cardno ASC
 
---------------------
+
+-------------------- 
 
 
 SELECT sal.DEPARTMENTNM, sal.DEPT_BANGLA, sal.SECTIONNM, sal.SEC_BANGLA, sal.LINENO, sal.FLOORNO, sal.MACHINENO, per.CARDNO, per.ENMNAME_BANGLA, per.JOINING_DATE, 
