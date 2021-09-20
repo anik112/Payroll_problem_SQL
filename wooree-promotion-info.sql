@@ -429,3 +429,75 @@ BEGIN
 EXCEPTION
 	WHEN OTHERS THEN v_yr_percent := 0;   
 END;
+
+
+
+
+
+SELECT cardno,secreteno,empname,joining_date,designation,grosssalary,lineno,sectionnm,departmentnm,
+           father_name, present_address, birth_date, gender, bloodgroup,salary_grade, religion,wday, incr_amt inramt
+FROM TB_PERSONAL_INFO
+WHERE company =:p_company
+AND   active       = 0
+AND   incr_amt > 0 
+AND   departmentnm LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept)
+AND   sectionnm       LIKE DECODE(NVL(:p_sec,'all'),'all','%',:p_sec)
+AND   lineno              LIKE DECODE(NVL(:p_lineno,'all'),'all','%',:p_lineno)
+AND   floorno             LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
+AND   machineno      LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)
+AND   designation     LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation)
+AND   workertype      LIKE DECODE(NVL(:p_woker,'all'),'all','%',:p_woker)
+AND   shift                 LIKE DECODE(NVL(:p_shift,'all'),'all','%',:p_shift) 
+AND    cardno          LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
+AND   gender            LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gender)
+AND   active             LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
+ORDER BY departmentnm,sectionnm,lineno,cardno ASC
+
+
+
+
+SELECT per.departmentnm, per.sectionnm, per.lineno, per.cardno, per.empname, 
+       per.joining_date, per.designation, per.salary_grade, (per.grosssalary+per.gross_bk)grosssalary,  per.workertype,
+       ABS.tot_lev_one , ABS.attn_one, ABS.prsnt_one, ABS.absnt_one
+FROM  TB_CLR_YR_ELEAVE_DAY ABS,TB_PERSONAL_INFO per
+WHERE ABS.company  = per.company
+AND   ABS.company  = :p_company
+AND   ABS.finyear     = :p_year
+AND   ABS.cardno   = per.cardno
+AND   per.departmentnm LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept)
+AND   per.sectionnm LIKE DECODE(NVL(:p_sec,'all'),'all','%',:p_sec)
+AND   per.designation LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation)
+AND   per.floorno LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
+AND   per.machineno      LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)
+AND   per.workertype LIKE DECODE(NVL(:p_woker,'all'),'all','%',:p_woker)
+AND   per.lineno LIKE DECODE(NVL(:p_lineno,'all'),'all','%',:p_lineno)
+AND   per.cardno LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
+AND   per.shift LIKE DECODE(NVL(:p_shift,'all'),'all','%',:p_shift) 
+AND   per.gender LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gender)
+AND   per.active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
+ORDER BY per.departmentnm, per.sectionnm, per.cardno ASC
+
+
+
+
+
+
+SELECT departmentnm, sectionnm, lineno, cardno, empname, 
+       joining_date, designation, salary_grade, grosssalary ,
+	   enmname_bangla, designation_bangla, dept_bangla, sec_bangla,workertype
+FROM TB_PERSONAL_INFO
+WHERE company = :p_company
+AND   TO_CHAR(joining_date,'RRRR')         < :p_year 
+AND   RTRIM(TO_CHAR(joining_date,'Month')) = :p_month
+AND   departmentnm LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept)
+AND   sectionnm LIKE DECODE(NVL(:p_sec,'all'),'all','%',:p_sec)
+AND   lineno LIKE DECODE(NVL(:p_lineno,'all'),'all','%',:p_lineno)
+AND   floorno             LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
+AND   machineno      LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)
+AND   designation LIKE DECODE(NVL(:p_designation,'all'),'all','%',:p_designation)
+AND   workertype LIKE DECODE(NVL(:p_woker,'all'),'all','%',:p_woker)
+AND   shift       LIKE DECODE(NVL(:p_shift,'all'),'all','%',:p_shift) 
+AND   cardno LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
+AND   gender LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gender)
+AND   active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
+ORDER BY cardno ASC
