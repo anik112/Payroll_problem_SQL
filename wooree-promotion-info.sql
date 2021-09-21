@@ -480,8 +480,6 @@ ORDER BY per.departmentnm, per.sectionnm, per.cardno ASC
 
 
 
-
-
 SELECT departmentnm, sectionnm, lineno, cardno, empname, 
        joining_date, designation, salary_grade, grosssalary ,
 	   enmname_bangla, designation_bangla, dept_bangla, sec_bangla,workertype
@@ -501,3 +499,6 @@ AND   cardno LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card)
 AND   gender LIKE DECODE(NVL(:p_gender,'all'),'all','%',:p_gender)
 AND   active LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
 ORDER BY cardno ASC
+
+
+
