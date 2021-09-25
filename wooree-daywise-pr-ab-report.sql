@@ -188,3 +188,29 @@ AND    per.lineno    LIKE DECODE(NVL(:p_line,'all'),'all','%',:p_line)
 AND    per.cardno    LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card) 
 AND    per.ACTIVE  LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active) 
 ORDER BY per.lineno,per.cardno ASC
+
+
+
+
+SELECT per.empname,per.lineno,per.sectionnm,per.departmentnm,
+       ot.cardno, ot.d1, ot.d2, ot.d3, ot.d4, ot.d5, ot.d6, ot.d7, ot.d8, ot.d9, ot.d10, ot.d11, ot.d12, ot.d13, ot.d14, ot.d15, 
+       ot.d16, ot.d17, ot.d18, ot.d19, ot.d20, ot.d21, ot.d22, ot.d23, ot.d24, ot.d25, ot.d26, ot.d27, ot.d28, ot.d29, ot.d30, 
+       ot.d31, ot.company, ot.finmonth, ot.finyear
+FROM   TB_CLR_MONTH_ATTN_DETAIL ot, TB_PERSONAL_INFO per 
+WHERE  per.company  = :p_company 
+AND    per.company      = ot.company
+AND    ot.finyear            = :p_year 
+AND    ot.finmonth         = :p_month  
+AND    TO_CHAR(per.resignation_date,'RRRR')              =:p_year
+AND    RTRIM(TO_CHAR(per.resignation_date,'Month')) =:p_month
+AND    ot.cardno           =  per.cardno 
+AND    per.departmentnm  LIKE DECODE(NVL(:p_dept,'all'),'all','%',:p_dept) 
+AND    per.sectionnm           LIKE DECODE(NVL(:p_section,'all'),'all','%',:p_section) 
+AND    per.designation        LIKE DECODE(NVL(:p_design,'all'),'all','%',:p_design) 
+AND    per.workertype       LIKE DECODE(NVL(:p_worker,'all'),'all','%',:p_worker) 
+AND    per.floorno               LIKE DECODE(NVL(:p_floorno,'all'),'all','%',:p_floorno)
+AND    per.machineno          LIKE DECODE(NVL(:p_machineno,'all'),'all','%',:p_machineno)
+AND    per.lineno    LIKE DECODE(NVL(:p_line,'all'),'all','%',:p_line) 
+AND    per.cardno    LIKE DECODE(NVL(:p_card,'all'),'all','%',:p_card) 
+AND    per.active  LIKE DECODE(NVL(:p_active,'all'),'all','%',:p_active)
+ORDER BY per.lineno,per.cardno ASC
