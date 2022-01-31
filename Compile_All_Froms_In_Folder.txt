@@ -1,0 +1,5 @@
+cd D:\MUGHAL_GRANITE\MUGHAL_LC_SALES\FORMS
+
+Echo compiling Forms....
+for %%f IN (*.fmb) do frmcmp userid=MUGHAL_LC_SALES/DDSSLCSALES@DATADSS module=%%f batch=yes module_type=form compile_all=yes window_state=minimize 
+ECHO FINISHED COMPILING
